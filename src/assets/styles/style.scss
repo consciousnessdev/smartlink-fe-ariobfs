@@ -17,7 +17,8 @@ $danger-light: findLightColor($danger);
 $danger-dark: findDarkColor($danger);
 $danger-invert: findColorInvert($danger);
 
-
+$semifade: #6F7287;
+$semifade-invert : findColorInvert($semifade);
 
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
@@ -29,6 +30,10 @@ $custom-shades: null !default;
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: mergeColorMaps(
     (
+        "semifade": (
+            $semifade,
+            $semifade-invert
+        ),
         "white": (
             $white,
             $black,
@@ -95,6 +100,14 @@ $colors: mergeColorMaps(
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
+
+// Start Import customize
+
+// Font
+@import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+$body-family: 'Overpass', 'Helvetica', 'sans-serif';
+
+// End Import customize
 
 // Import Bulma and Buefy styles
 @import "~bulma";
