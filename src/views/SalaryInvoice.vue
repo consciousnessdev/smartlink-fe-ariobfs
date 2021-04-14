@@ -11,7 +11,7 @@
       <salary-section
         :dataSalary="[]"
       />
-      <piece-rate />
+      <piece-rate section="main" title="Upah Borongan"/>
     </div>
   </div>
 </template>

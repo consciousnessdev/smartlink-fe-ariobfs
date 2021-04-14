@@ -1,22 +1,25 @@
 <template>
   <div class="row columns is-variable is-2">
-    <div class="column is-8 label__value">
+    <div class="column is-7 label__value">
       <div class="labelvalue__header has-text-weight-bold">{{ label }}</div>
       <div class="labelvalue__content has-text-semifade">
-        {{ `${value} x ${totalUnit} ${unit}` }}
+        {{ multiplier ? `${value} x ${totalUnit} ${unit}` : `${totalUnit}${unit}` }}
       </div>
     </div>
     <div
-      class="column is-2 is-flex is-align-items-center nominal__value has-text-weight-bold"
+      class="column is-4 is-flex nominal__value has-text-weight-bold"
     >
       {{ getSummaryUnitCalc }}
     </div>
     <div
-      class="column is-flex is-auto is-align-items-center is-justify-content-flex-end action"
+      class="column is-flex is-auto action"
       v-if="showIcon"
     >
-      <icon-components icon-name="edit-icon"
+      <icon-components v-if="iconType==='edit'" icon-name="edit-icon"
         ><edit-icon :icon-stroke="iconColor"
+      /></icon-components>
+      <icon-components v-else-if="iconType==='disabled'" icon-name="disabled-icon"
+        ><disabled-icon
       /></icon-components>
     </div>
   </div>
@@ -25,11 +28,13 @@
 <script>
 import IconComponents from '../../IconComponents';
 import EditIcon from '../../IconComponents/EditIcon';
+import DisabledIcon from '../../IconComponents/DisabledIcon';
 export default {
   name: 'RowListItem',
   components: {
     IconComponents,
     EditIcon,
+    DisabledIcon,
   },
   props: {
     label: {
@@ -52,9 +57,19 @@ export default {
       required: false,
       default: '',
     },
+    multiplier: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
     showIcon: {
       type: Boolean,
       default: false,
+      required: false,
+    },
+    iconType: {
+      type: String,
+      default: '',
       required: false,
     },
     iconColor: {
