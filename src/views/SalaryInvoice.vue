@@ -8,10 +8,13 @@
         :salaryPeriode="'01 Januari 2021 - 31 Januari 2021'"
         :presenceDay="'22'"
       />
-      <salary-section
-        :dataSalary="[]"
+      <salary-section section="main" title="Gaji" :dataSalary="[]" subtotalLabel="Gaji" />
+      <piece-rate section="main" title="Upah Borongan" subtotalLabel="Upah" />
+      <commission-section
+        section="main"
+        title="Komisi"
+        subtotalLabel="Komisi"
       />
-      <piece-rate section="main" title="Upah Borongan"/>
     </div>
   </div>
 </template>
@@ -21,13 +24,15 @@
 import HeaderApps from '@/components/HeaderApps';
 import SalarySection from '@/components/SalarySection';
 import PieceRate from '@/components/PieceRate';
+import CommissionSection from '@/components/CommissionSection';
 
 export default {
   name: 'Home',
   components: {
     HeaderApps,
     SalarySection,
-    PieceRate
+    PieceRate,
+    CommissionSection,
   },
 };
 </script>

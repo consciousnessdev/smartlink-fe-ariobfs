@@ -31,7 +31,9 @@
     <div class="pt-0 pb-4 px-4 piecerate__subtotal">
       <div class="top--thindashborder mb-4"></div>
       <div class="columns piecerate__subtotal-wrapper">
-        <div class="column has-text-weight-bold">Subtotal Upah</div>
+        <div class="column has-text-weight-bold">
+          Subtotal {{ subtotalLabel }}
+        </div>
         <div class="column has-text-weight-bold has-text-right">
           Rp {{ '100.000' }}
         </div>
@@ -50,6 +52,10 @@ export default {
       required: true,
     },
     title: {
+      type: String,
+      required: true,
+    },
+    subtotalLabel: {
       type: String,
       required: true,
     },
