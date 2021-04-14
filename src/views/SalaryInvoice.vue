@@ -7,6 +7,9 @@
         :salaryPeriode="'01 Januari 2021 - 31 Januari 2021'"
         :presenceDay="'22'"
       />
+      <salary-section
+        :dataSalary="[]"
+      />
     </div>
   </div>
 </template>
@@ -14,11 +17,13 @@
 <script>
 // @ is an alias to /src
 import HeaderApps from '@/components/HeaderApps';
+import SalarySection from '@/components/SalarySection';
 
 export default {
   name: 'Home',
   components: {
     HeaderApps,
+    SalarySection
   },
 };
 </script>
