@@ -1,13 +1,24 @@
 <template>
   <div class="row columns is-variable is-2">
     <div class="column is-7 label__value">
-      <div class="labelvalue__header has-text-weight-bold">{{ label }}</div>
+      <div 
+        class="labelvalue__header"
+        :class="!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold'"
+      >{{ label }}</div>
       <div class="labelvalue__content has-text-semifade">
         {{ multiplier ? `${value} x ${totalUnit} ${unit}` : `${totalUnit}${unit}` }}
       </div>
     </div>
     <div
+      class="column is-4 is-flex nominal__value"
+      :class="!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold'"
+      v-if="!multiplier"
+    >
+      {{value}}
+    </div>
+    <div
       class="column is-4 is-flex nominal__value has-text-weight-bold"
+      v-else
     >
       {{ getSummaryUnitCalc }}
     </div>
