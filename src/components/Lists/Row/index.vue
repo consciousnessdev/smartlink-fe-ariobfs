@@ -1,35 +1,53 @@
 <template>
   <div class="row columns is-variable is-2">
-    <div class="column is-7 label__value">
-      <div 
-        class="labelvalue__header"
-        :class="!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold'"
-      >{{ label }}</div>
-      <div class="labelvalue__content has-text-semifade">
-        {{ multiplier ? `${value} x ${totalUnit} ${unit}` : `${totalUnit}${unit}` }}
+    <template>
+      <div class="column is-7 label__value" v-if="sublabel === ''">
+        <div
+          class="labelvalue__header"
+          :class="!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold'"
+        >
+          {{ label }}
+        </div>
+        <div class="labelvalue__content has-text-semifade">
+          {{
+            multiplier
+              ? `${value} x ${totalUnit} ${unit}`
+              : `${totalUnit}${unit}`
+          }}
+        </div>
       </div>
-    </div>
-    <div
-      class="column is-4 is-flex nominal__value"
-      :class="!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold'"
-      v-if="!multiplier"
-    >
-      {{value}}
-    </div>
-    <div
-      class="column is-4 is-flex nominal__value has-text-weight-bold"
-      v-else
-    >
-      {{ getSummaryUnitCalc }}
-    </div>
-    <div
-      class="column is-flex is-auto action"
-      v-if="showIcon"
-    >
-      <icon-components v-if="iconType==='edit'" icon-name="edit-icon"
+      <div class="column is-7 label__value" v-else>
+        <div class="labelvalue__header">
+          {{ label }}
+        </div>
+        <div class="labelvalue__content has-text-semifade">
+          {{ sublabel }}
+        </div>
+      </div>
+    </template>
+
+    <template>
+      <div
+        class="column is-4 is-flex nominal__value"
+        :class="!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold'"
+        v-if="!multiplier"
+      >
+        <span :class="valueColor === 'danger' ? 'has-text-danger' : ''">{{ value }}</span>
+      </div>
+      <div
+        class="column is-4 is-flex nominal__value has-text-weight-bold"
+        v-else
+      >
+        {{ getSummaryUnitCalc }}
+      </div>
+    </template>
+    <div class="column is-flex is-auto action" v-if="showIcon">
+      <icon-components v-if="iconType === 'edit'" icon-name="edit-icon"
         ><edit-icon :icon-stroke="iconColor"
       /></icon-components>
-      <icon-components v-else-if="iconType==='disabled'" icon-name="disabled-icon"
+      <icon-components
+        v-else-if="iconType === 'disabled'"
+        icon-name="disabled-icon"
         ><disabled-icon
       /></icon-components>
     </div>
@@ -53,6 +71,11 @@ export default {
       required: false,
       default: '',
     },
+    sublabel: {
+      type: String,
+      required: false,
+      default: '',
+    },
     unit: {
       type: String,
       required: false,
@@ -68,10 +91,15 @@ export default {
       required: false,
       default: '',
     },
+    valueColor: {
+      type: String,
+      required: false,
+      default: '',
+    },
     multiplier: {
       type: Boolean,
       required: false,
-      default: false
+      default: false,
     },
     showIcon: {
       type: Boolean,

@@ -10,11 +10,24 @@
       />
       <salary-section section="main" title="Gaji" :dataSalary="[]" subtotalLabel="Gaji" />
       <piece-rate section="main" title="Upah Borongan" subtotalLabel="Upah" />
+      <!-- conditional if has no komisi -->
+      <!-- <template v-if="komisi.length > 0"> -->
       <commission-section
         section="main"
         title="Komisi"
         subtotalLabel="Komisi"
       />
+      <!-- </template> -->
+
+      <!-- conditional if has no tanggungan -->
+      <!-- <template v-if="tanggungan.length > 0"> -->
+      <dependent-section
+        section="main"
+        title="Tanggungan"
+        subtitle="Karyawan ini memiliki tanggungan Rp 570.000"
+        dependentTotalLabel="Tanggungan Dibayar"
+      />
+      <!-- </template> -->
     </div>
   </div>
 </template>
@@ -25,6 +38,7 @@ import HeaderApps from '@/components/HeaderApps';
 import SalarySection from '@/components/SalarySection';
 import PieceRate from '@/components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
+import DependentSection from '@/components/DependentSection';
 
 export default {
   name: 'Home',
@@ -33,6 +47,7 @@ export default {
     SalarySection,
     PieceRate,
     CommissionSection,
+    DependentSection
   },
 };
 </script>
