@@ -8,7 +8,12 @@
         :salaryPeriode="'01 Januari 2021 - 31 Januari 2021'"
         :presenceDay="'22'"
       />
-      <salary-section section="main" title="Gaji" :dataSalary="[]" subtotalLabel="Gaji" />
+      <salary-section
+        section="main"
+        title="Gaji"
+        :dataSalary="[]"
+        subtotalLabel="Gaji"
+      />
       <piece-rate section="main" title="Upah Borongan" subtotalLabel="Upah" />
       <!-- conditional if has no komisi -->
       <!-- <template v-if="komisi.length > 0"> -->
@@ -28,6 +33,7 @@
         dependentTotalLabel="Tanggungan Dibayar"
       />
       <!-- </template> -->
+      <summary-salary />
     </div>
   </div>
 </template>
@@ -39,6 +45,7 @@ import SalarySection from '@/components/SalarySection';
 import PieceRate from '@/components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
 import DependentSection from '@/components/DependentSection';
+import SummarySalary from '@/components/SummarySalary';
 
 export default {
   name: 'Home',
@@ -47,7 +54,8 @@ export default {
     SalarySection,
     PieceRate,
     CommissionSection,
-    DependentSection
+    DependentSection,
+    SummarySalary
   },
 };
 </script>
