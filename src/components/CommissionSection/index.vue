@@ -42,7 +42,7 @@
     </div>
     <div class="py-3 px-4 commissionsection__brutosalary">
       <div class="columns commissionsection__brutosalary-wrapper has-text-secondary">
-        <div class="column has-text-weight-bold">
+        <div class="column is-5 has-text-weight-bold">
           Total Gaji Kotor
         </div>
         <div class="column has-text-weight-bold has-text-right">
