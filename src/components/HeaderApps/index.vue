@@ -81,12 +81,12 @@ export default {
 @import '../../assets/styles/mixins.scss';
 
 .header__apps {
-  @include border(bottom, 12px, solid, #eee);
+  @include border(bottom, 12px, solid, #F2F5F7);
 }
 
 .salaryinvoice__header {
   // border mixin
-  @include border(bottom, 2px, solid, #eee);
+  @include border(bottom, 2px, solid, #F2F5F7);
 }
 
 .person {

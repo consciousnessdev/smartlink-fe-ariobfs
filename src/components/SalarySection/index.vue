@@ -37,7 +37,7 @@ export default {
 @import '../../assets/styles/mixins.scss';
 .salary {
   &__section {
-      @include border(bottom, 12px, solid, #eee);
+      @include border(bottom, 12px, solid, #F2F5F7);
   }
   &__subtotal {
     .divider {
