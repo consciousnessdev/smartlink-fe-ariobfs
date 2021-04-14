@@ -17,7 +17,8 @@ $danger-light: findLightColor($danger);
 $danger-dark: findDarkColor($danger);
 $danger-invert: findColorInvert($danger);
 
-
+$semifade: #6F7287;
+$semifade-invert : findColorInvert($semifade);
 
 $twitter: #4099FF;
 $twitter-invert: findColorInvert($twitter);
@@ -29,6 +30,10 @@ $custom-shades: null !default;
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: mergeColorMaps(
     (
+        "semifade": (
+            $semifade,
+            $semifade-invert
+        ),
         "white": (
             $white,
             $black,
@@ -95,6 +100,42 @@ $colors: mergeColorMaps(
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
+
+// Start Import customize
+
+// Font
+@import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+$body-family: 'Overpass', 'Helvetica', 'sans-serif';
+
+// Custom Mixin
+@import './mixins.scss';
+
+// Custom Classes
+.bottom--tickborder {
+    @include border(bottom, 12px, solid, #F2F5F7);
+}
+
+.bottom--moretickborder {
+    @include border(bottom, 21px, solid, #F2F5F7);
+}
+
+.bottom--thinborder {
+    @include border(bottom, 2px, solid, #F2F5F7);
+}
+
+.top--thindashborder {
+    @include border(top, 2px, dashed, rgba(229, 229, 229, 0.5));
+}
+
+.has-font-size-14 {
+    font-size: 14px;
+}
+
+.has-font-weight-600 {
+    font-weight: 600;
+}
+
+// End Import customize
 
 // Import Bulma and Buefy styles
 @import "~bulma";

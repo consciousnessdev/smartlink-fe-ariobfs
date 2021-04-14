@@ -1,14 +1,14 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import Home from '../views/Home.vue';
+import SalaryInvoice from '../views/SalaryInvoice.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: Home,
+    name: 'Salary Invoice',
+    component: SalaryInvoice,
   },
   {
     path: '/about',
