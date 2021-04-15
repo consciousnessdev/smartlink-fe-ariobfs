@@ -9,7 +9,7 @@
           unit="periode"
           value="8000"
           :multiplier="true"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="edit"
         />
         <row
@@ -18,7 +18,7 @@
           unit="kehadiran"
           value="10000"
           :multiplier="true"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="edit"
         />
         <row
@@ -27,7 +27,7 @@
           unit="kehadiran"
           value="12000"
           :multiplier="true"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="edit"
         />
         <row
@@ -36,7 +36,7 @@
           unit="kehadiran"
           value="15000"
           :multiplier="true"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="edit"
         />
         <row
@@ -45,7 +45,7 @@
           unit="kehadiran"
           value="5000"
           :multiplier="true"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="edit"
         />
       </div>

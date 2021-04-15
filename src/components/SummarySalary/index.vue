@@ -22,7 +22,8 @@
       </div>
     </div>
     <div class="pb-4 pt-0 px-4 summarysalary__button">
-      <b-button class="is-primary" expanded>Berikutnya</b-button>
+      <b-button v-if="section==='summary'" class="is-secondary" expanded>Cetak</b-button>
+      <b-button v-else class="is-primary" expanded>Berikutnya</b-button>
     </div>
   </div>
 </template>
@@ -36,6 +37,13 @@ export default {
     IconComponents,
     CheckFillIcon,
   },
+  props: {
+    section: {
+      type: String,
+      required: false,
+      default: ''
+    }
+  }
 };
 </script>
 

@@ -12,7 +12,7 @@
           <row label="Gaji Kotor" value="2.824.000" valueColor="secondary" />
           <row label="Tanggungan" value="70.000" valueColor="fatal" />
         </content-header>
-        <summary-header>
+        <summary-header class="py-5">
           <div class="salarytotal__header-wrapper columns">
             <div
               class="column py-0 salarytotal__day has-text-primary has-text-weight-bold is-size-6"

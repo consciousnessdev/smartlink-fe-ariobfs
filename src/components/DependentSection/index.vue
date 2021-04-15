@@ -9,7 +9,7 @@
       </div>
     </div>
     <!-- Add dependent Button-->
-    <div class="pt-4 pb-0 px-4 dependentsection__button">
+    <div v-if="section==='main'" class="pt-4 pb-0 px-4 dependentsection__button">
       <div class="is-flex dependentsection__add">
         <div class="pr-2 dependentsection__addicon">
           <icon-components icon-name="add-icon">
@@ -30,7 +30,7 @@
           sublabel="Baju yang hilang warna merah"
           value="50.000"
           valueColor="danger"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="edit"
           iconColor="danger"
         />
@@ -39,7 +39,7 @@
           sublabel="karena terlambat 3 hari berturut - turut "
           value="20.000"
           valueColor="danger"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="edit"
           iconColor="danger"
         />
