@@ -70,6 +70,8 @@ import CommissionSection from '@/components/CommissionSection';
 import DependentSection from '@/components/DependentSection';
 import SummarySalary from '@/components/SummarySalary';
 
+import apiRequestUtil from '../utils/apiRequest';
+
 export default {
   name: 'Home',
   components: {
@@ -83,5 +85,10 @@ export default {
     DependentSection,
     SummarySalary,
   },
+  mounted() {
+    apiRequestUtil('/inquiry').then(response => {
+      console.log(response);
+    });
+  }
 };
 </script>
