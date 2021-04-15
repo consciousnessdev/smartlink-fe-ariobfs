@@ -15,7 +15,7 @@
             </div>
           </div>
         </content-header>
-        <summary-header>
+        <summary-header class="py-5">
           <div class="presence__header-wrapper columns">
             <div class="column presence__day has-text-semifade">
               Masuk 22 Hari

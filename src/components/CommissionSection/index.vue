@@ -6,7 +6,7 @@
       {{ title }}
     </div>
     <!-- Add commission Button-->
-    <div class="pt-4 pb-0 px-4 commissionsection__button">
+    <div v-if="section==='main'" class="pt-4 pb-0 px-4 commissionsection__button">
       <div class="is-flex commissionsection__add">
         <div class="pr-2 commissionsection__addicon">
           <icon-components icon-name="add-icon">
@@ -24,7 +24,7 @@
         <row
           label="Bonus Target 1"
           value="20000"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="edit"
         />
       </div>

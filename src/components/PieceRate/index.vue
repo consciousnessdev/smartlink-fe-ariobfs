@@ -14,7 +14,7 @@
           totalUnit="100"
           unit="KG"
           value="20000"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="disabled"
         />
         <row
@@ -22,7 +22,7 @@
           totalUnit="50"
           unit="KG"
           value="80000"
-          showIcon
+          :showIcon="section === 'main'"
           iconType="disabled"
         />
       </div>

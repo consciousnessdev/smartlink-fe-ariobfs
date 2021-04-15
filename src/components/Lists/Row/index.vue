@@ -37,7 +37,8 @@
         <span :class="valueColor ? textColorSetter(valueColor) : ''">{{ value }}</span>
       </div>
       <div
-        class="column is-4 is-flex nominal__value has-text-weight-bold"
+        class="column is-flex nominal__value"
+        :class="!showIcon ? 'is-5 has-text-weight-bold' : 'is-4 has-text-weight-bold'"
         v-else
       >
         {{ getSummaryUnitCalc }}

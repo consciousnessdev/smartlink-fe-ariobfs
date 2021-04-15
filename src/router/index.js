@@ -2,6 +2,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import SalaryInvoice from '../views/SalaryInvoice.vue';
 import PaymentDetail from '../views/PaymentDetail.vue';
+import DetailInvoice from '../views/DetailInvoice.vue';
 
 Vue.use(VueRouter);
 
@@ -15,6 +16,11 @@ const routes = [
     path: '/paymentdetail',
     name: 'Payment Detail',
     component: PaymentDetail,
+  },
+  {
+    path: '/invoicedetail',
+    name: 'Invoice Detail',
+    component: DetailInvoice,
   },
   {
     path: '/about',
