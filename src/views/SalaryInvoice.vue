@@ -1,13 +1,33 @@
 <template>
   <div class="salary__invoice">
     <div class="salary__invoice-wrapper">
-      <header-apps
-        section="main"
-        title="Faktur Gaji"
-        :personName="'Bu Adara Olivia'"
-        :salaryPeriode="'01 Januari 2021 - 31 Januari 2021'"
-        :presenceDay="'22'"
-      />
+      <header-apps>
+        <title-header> Faktur Gaji </title-header>
+        <content-header>
+          <div class="person__header-wrapper">
+            <div class="has-text-weight-bold person__name">
+              Bu Adara Olivia
+            </div>
+            <div
+              class="person__salaryperiode has-font-size-14 has-text-semifade"
+            >
+              01 Januari 2021 - 31 Januari 2021
+            </div>
+          </div>
+        </content-header>
+        <summary-header>
+          <div class="presence__header-wrapper columns">
+            <div class="column presence__day has-text-semifade">
+              Masuk 22 Hari
+            </div>
+            <div
+              class="column is-flex is-justify-content-flex-end presence__setting has-text-primary"
+            >
+              Ubah Kehadiran
+            </div>
+          </div>
+        </summary-header>
+      </header-apps>
       <salary-section
         section="main"
         title="Gaji"
@@ -41,6 +61,9 @@
 <script>
 // @ is an alias to /src
 import HeaderApps from '@/components/HeaderApps';
+import TitleHeader from '@/components/HeaderApps/TitleHeader';
+import ContentHeader from '@/components/HeaderApps/ContentHeader';
+import SummaryHeader from '@/components/HeaderApps/SummaryHeader';
 import SalarySection from '@/components/SalarySection';
 import PieceRate from '@/components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
@@ -51,11 +74,14 @@ export default {
   name: 'Home',
   components: {
     HeaderApps,
+    TitleHeader,
+    ContentHeader,
+    SummaryHeader,
     SalarySection,
     PieceRate,
     CommissionSection,
     DependentSection,
-    SummarySalary
+    SummarySalary,
   },
 };
 </script>

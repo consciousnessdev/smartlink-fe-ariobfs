@@ -1,77 +1,11 @@
 <template>
   <section class="section py-0 px-0 header__apps bottom--tickborder">
-    <div
-      class="has-text-centered has-text-weight-bold py-4 salaryinvoice__header bottom--thinborder"
-    >
-      {{ title }}
-    </div>
-    <div
-      class="py-4 px-4 person__header"
-      :class="section === 'detail' ? 'top--thindashborder' : ''"
-    >
-      <div class="person__header-wrapper">
-        <div class="has-text-weight-bold person__name">{{ personName }}</div>
-        <div class="person__salaryperiode has-font-size-14 has-text-semifade">
-          {{ salaryPeriode }}
-        </div>
-      </div>
-    </div>
-    <div
-      v-if="presenceDay && getStringLength(presenceDay)"
-      class="py-5 px-4 has-font-size-14 has-font-weight-600 top--thindashborder"
-    >
-      <div class="presence__header-wrapper columns">
-        <div class="column presence__day has-text-semifade">
-          Masuk {{ presenceDay }} Hari
-        </div>
-        <div
-          class="column is-flex is-justify-content-flex-end presence__setting has-text-primary"
-        >
-          Ubah Kehadiran
-        </div>
-      </div>
-    </div>
+    <slot> </slot>
   </section>
 </template>
 
 <script>
 export default {
   name: 'HeaderApps',
-  props: {
-    section: {
-      type: String,
-      required: true,
-    },
-    title: {
-      type: String,
-      required: true,
-    },
-    personName: {
-      type: String,
-      required: true,
-    },
-    salaryPeriode: {
-      type: String,
-      required: true,
-    },
-    invoiceCode: {
-      type: String,
-      required: false,
-    },
-    invoicePeriode: {
-      type: String,
-      required: false,
-    },
-    presenceDay: {
-      type: String,
-      required: false,
-    },
-  },
-  methods: {
-    getStringLength(str) {
-      if (str.length > 0) return true;
-      return false;
-    },
-  },
 };
 </script>

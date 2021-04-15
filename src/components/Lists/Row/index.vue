@@ -1,5 +1,6 @@
 <template>
   <div class="row columns is-variable is-2">
+    <!-- left side -->
     <template>
       <div class="column is-7 label__value" v-if="sublabel === ''">
         <div
@@ -26,13 +27,14 @@
       </div>
     </template>
 
+    <!-- right side -->
     <template>
       <div
-        class="column is-4 is-flex nominal__value"
-        :class="!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold'"
+        class="column is-flex nominal__value"
+        :class="[!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold', !showIcon ? 'is-5 has-text-weight-bold' : 'is-4']"
         v-if="!multiplier"
       >
-        <span :class="valueColor === 'danger' ? 'has-text-danger' : ''">{{ value }}</span>
+        <span :class="valueColor ? textColorSetter(valueColor) : ''">{{ value }}</span>
       </div>
       <div
         class="column is-4 is-flex nominal__value has-text-weight-bold"
@@ -116,6 +118,11 @@ export default {
       required: false,
     },
   },
+  data() {
+    return {
+      colorTable: ['primary','secondary','danger', 'fatal']
+    }
+  },
   computed: {
     getSummaryUnitCalc() {
       if (this.value && this.totalUnit) {
@@ -125,6 +132,18 @@ export default {
       }
     },
   },
+  methods: {
+    textColorSetter(colorStr) {
+      if(this.colorTable.indexOf(colorStr) !== -1){
+        return `has-text-${colorStr}`;
+      }else{
+        return '';
+      }
+    },
+    parseNominal(type, value, cur) {
+      // todo parse nominal such as : type(tanggungan whic use '(-)'), currency label(Rp ) & parse digit separator 
+    }
+  }
 };
 </script>
 
