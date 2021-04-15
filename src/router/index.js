@@ -1,6 +1,7 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 import SalaryInvoice from '../views/SalaryInvoice.vue';
+import PaymentDetail from '../views/PaymentDetail.vue';
 
 Vue.use(VueRouter);
 
@@ -9,6 +10,11 @@ const routes = [
     path: '/',
     name: 'Salary Invoice',
     component: SalaryInvoice,
+  },
+  {
+    path: '/paymentdetail',
+    name: 'Payment Detail',
+    component: PaymentDetail,
   },
   {
     path: '/about',
