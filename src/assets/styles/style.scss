@@ -1,0 +1,153 @@
+// Import Bulma's core
+@import "~bulma/sass/utilities/_all";
+
+// Set your colors
+$primary: #206CFF;
+$primary-light: findLightColor($primary);
+$primary-dark: findDarkColor($primary);
+$primary-invert: findColorInvert($primary);
+
+$secondary: #00B6AB;
+$secondary-light: findLightColor($secondary);
+$secondary-dark: findDarkColor($secondary);
+$secondary-invert: findColorInvert($secondary);
+
+$danger: #EB5757;
+$danger-light: findLightColor($danger);
+$danger-dark: findDarkColor($danger);
+$danger-invert: findColorInvert($danger);
+
+$fatal: #FF0000;
+$fatal-light: findLightColor($fatal);
+$fatal-dark: findDarkColor($fatal);
+$fatal-invert: findColorInvert($fatal);
+
+$semifade: #6F7287;
+$semifade-invert : findColorInvert($semifade);
+
+$twitter: #4099FF;
+$twitter-invert: findColorInvert($twitter);
+
+// Lists and maps
+$custom-colors: null !default;
+$custom-shades: null !default;
+
+// Setup $colors to use as bulma classes (e.g. 'is-twitter')
+$colors: mergeColorMaps(
+    (
+        "semifade": (
+            $semifade,
+            $semifade-invert
+        ),
+        "fatal": (
+            $fatal,
+            $fatal-light,
+            $fatal-dark,
+            $fatal-invert
+        ),
+        "white": (
+            $white,
+            $black,
+        ),
+        "black": (
+            $black,
+            $white,
+        ),
+        "light": (
+            $light,
+            $light-invert,
+        ),
+        "dark": (
+            $dark,
+            $dark-invert,
+        ),
+        "primary": (
+            $primary,
+            $primary-invert,
+            $primary-light,
+            $primary-dark,
+        ),
+        "secondary": (
+            $secondary,
+            $secondary-invert,
+            $secondary-light,
+            $secondary-dark,
+        ),
+        "link": (
+            $link,
+            $link-invert,
+            $link-light,
+            $link-dark,
+        ),
+        "info": (
+            $info,
+            $info-invert,
+            $info-light,
+            $info-dark,
+        ),
+        "success": (
+            $success,
+            $success-invert,
+            $success-light,
+            $success-dark,
+        ),
+        "warning": (
+            $warning,
+            $warning-invert,
+            $warning-light,
+            $warning-dark,
+        ),
+        "danger": (
+            $danger,
+            $danger-invert,
+            $danger-light,
+            $danger-dark,
+        ),
+    ),
+    $custom-colors
+);
+
+// Links
+$link: $primary;
+$link-invert: $primary-invert;
+$link-focus-border: $primary;
+
+// Start Import customize
+
+// Font
+@import url('https://fonts.googleapis.com/css2?family=Overpass&display=swap');
+$body-family: 'Overpass', 'Helvetica', 'sans-serif';
+
+// Custom Mixin
+@import './mixins.scss';
+
+// Custom Classes
+.bottom--tickborder {
+    @include border(bottom, 12px, solid, #F2F5F7);
+}
+
+.bottom--moretickborder {
+    @include border(bottom, 21px, solid, #F2F5F7);
+}
+
+.bottom--thinborder {
+    @include border(bottom, 2px, solid, #F2F5F7);
+}
+
+.top--thindashborder {
+    @include border(top, 2px, dashed, rgba(229, 229, 229, 0.5));
+}
+
+.has-font-size-14 {
+    font-size: 14px;
+}
+
+.has-font-weight-600 {
+    font-weight: 600;
+}
+
+// End Import customize
+
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
