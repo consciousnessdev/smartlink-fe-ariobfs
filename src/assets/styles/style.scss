@@ -17,6 +17,11 @@ $danger-light: findLightColor($danger);
 $danger-dark: findDarkColor($danger);
 $danger-invert: findColorInvert($danger);
 
+$fatal: #FF0000;
+$fatal-light: findLightColor($fatal);
+$fatal-dark: findDarkColor($fatal);
+$fatal-invert: findColorInvert($fatal);
+
 $semifade: #6F7287;
 $semifade-invert : findColorInvert($semifade);
 
@@ -33,6 +38,12 @@ $colors: mergeColorMaps(
         "semifade": (
             $semifade,
             $semifade-invert
+        ),
+        "fatal": (
+            $fatal,
+            $fatal-light,
+            $fatal-dark,
+            $fatal-invert
         ),
         "white": (
             $white,
