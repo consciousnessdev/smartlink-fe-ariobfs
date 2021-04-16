@@ -47,24 +47,18 @@
         :dataWageProcessing="getSalaryWageProcessingSettingData"
         subtotalLabel="Upah"
       />
-      <!-- conditional if has no komisi -->
-      <!-- <template v-if="komisi.length > 0"> -->
-      <!-- <commission-section
+      <commission-section
         section="main"
         title="Komisi"
         subtotalLabel="Komisi"
-      /> -->
-      <!-- </template> -->
+      />
 
-      <!-- conditional if has no tanggungan -->
-      <!-- <template v-if="tanggungan.length > 0"> -->
       <!-- <dependent-section
         section="main"
         title="Tanggungan"
         subtitle="Karyawan ini memiliki tanggungan Rp 570.000"
         dependentTotalLabel="Tanggungan Dibayar"
       /> -->
-      <!-- </template> -->
       <!-- <summary-salary /> -->
     </div>
   </div>

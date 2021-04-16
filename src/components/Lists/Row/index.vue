@@ -93,7 +93,6 @@ export default {
       default: '',
     },
     totalUnit: {
-      type: Number,
       required: false,
       default: '',
     },
