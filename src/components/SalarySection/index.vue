@@ -1,18 +1,22 @@
 <template>
   <section class="section py-0 px-0 salary__section bottom--tickborder">
     <div class="py-4 px-4 salary__list">
-      <div class="has-text-weight-bold py-4 salarylist__header">{{title}}</div>
+      <div class="has-text-weight-bold py-4 salarylist__header">
+        {{ title }}
+      </div>
       <div class="salarylist__item">
         <row
-          label="Gaji Pokok"
-          totalUnit="1"
-          unit="periode"
-          value="8000"
+          v-for="salary in dataSalary"
+          :key="salary.id"
+          :label="salary.nama"
+          :totalUnit="setMultiplierType(salary.jenis)"
+          :unit="salary.jenis"
+          :value="salary.nominal"
           :multiplier="true"
           :showIcon="section === 'main'"
           iconType="edit"
         />
-        <row
+        <!-- <row
           label="Uang Makan"
           totalUnit="22"
           unit="kehadiran"
@@ -47,7 +51,7 @@
           :multiplier="true"
           :showIcon="section === 'main'"
           iconType="edit"
-        />
+        /> -->
       </div>
     </div>
     <div class="pt-0 pb-4 px-4 salary__subtotal">
@@ -57,7 +61,7 @@
           Subtotal {{ subtotalLabel }}
         </div>
         <div class="column has-text-weight-bold has-text-right">
-          Rp {{ '2.524.000' }}
+          Rp {{ subTotalGaji }}
         </div>
       </div>
     </div>
@@ -65,7 +69,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Row from '../Lists/Row';
+import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
   name: 'SalarySection',
   components: {
@@ -83,6 +89,31 @@ export default {
     subtotalLabel: {
       type: String,
       required: true,
+    },
+    dataSalary: {
+      type: Array,
+      required: true,
+      default: [],
+    },
+  },
+  computed: {
+    ...mapGetters('salaryinvoiceStore', ['getPeriod', 'getPresenceDay']),
+    subTotalGaji() {
+      if(this.dataSalary.length > 0) {
+        let subTotalVal = this.dataSalary.reduce((total, item) => {
+          return total += item.jenis === 'periode' ? item.nominal * this.getPeriod : item.nominal * this.getPresenceDay
+        }, 0)
+        return kursRupiahUtil(subTotalVal, '');
+      }
+      return 0;
+    },
+  },
+  methods: {
+    setMultiplierType(currentType) {
+      if (currentType === 'periode') {
+        return this.getPeriod;
+      }
+      return this.getPresenceDay;
     },
   },
 };
