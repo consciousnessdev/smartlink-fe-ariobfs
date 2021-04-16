@@ -7,6 +7,7 @@ const state = {
   salaryCommissionData:[],
   salaryDependentsData:[],
   salaryBrutoValue: 0,
+  salaryNettoValue: 0,
   salaryInvoiceStatus: 0,
   salaryInvoiceMessage:'',
 };

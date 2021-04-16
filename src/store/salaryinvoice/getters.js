@@ -24,6 +24,9 @@ const getters = {
   getSalaryDependentsData: (state) => {
     return state.salaryDependentsData;
   },
+  getSalaryNettoValue: (state) => {
+    return state.salaryNettoValue;
+  },
 
   // specific data getter
   getPeriod: (state) => {

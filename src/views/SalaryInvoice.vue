@@ -62,7 +62,7 @@
         :dataDependent="getSalaryDependentsData"
         dependentTotalLabel="Tanggungan Dibayar"
       />
-      <!-- <summary-salary /> -->
+      <netto-salary-section :value="getSalaryNettoValue" />
     </div>
   </div>
 </template>
@@ -80,7 +80,7 @@ import PieceRate from '@/components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
 import BrutoSalarySection from '@/components/BrutoSalarySection';
 import DependentSection from '@/components/DependentSection';
-import SummarySalary from '@/components/SummarySalary';
+import NettoSalarySection from '@/components/NettoSalarySection';
 import LoadingSpinners from '@/components/LoadingSpinners';
 
 export default {
@@ -95,7 +95,7 @@ export default {
     CommissionSection,
     BrutoSalarySection,
     DependentSection,
-    SummarySalary,
+    NettoSalarySection,
     LoadingSpinners,
   },
   data() {
@@ -113,6 +113,7 @@ export default {
       'getSalaryCommissionData',
       'getSalaryBrutoValue',
       'getSalaryDependentsData',
+      'getSalaryNettoValue',
       'getSalaryInvoiceStatus',
       'getSalaryInvoiceMessage',
     ]),

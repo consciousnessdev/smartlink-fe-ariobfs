@@ -51,7 +51,7 @@
         dependentTotalLabel="Tanggungan Dibayar"
       />
       <!-- </template> -->
-      <summary-salary section="summary"/>
+      <netto-salary-section section="summary"/>
     </div>
   </div>
 </template>
@@ -65,7 +65,7 @@ import SalarySection from '../components/SalarySection';
 import PieceRate from '../components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
 import DependentSection from '@/components/DependentSection';
-import SummarySalary from '@/components/SummarySalary';
+import NettoSalarySection from '@/components/NettoSalarySection';
 export default {
   name: 'DetailInvoice',
   props: {},
@@ -78,7 +78,7 @@ export default {
     PieceRate,
     CommissionSection,
     DependentSection,
-    SummarySalary,
+    NettoSalarySection,
   },
 };
 </script>
