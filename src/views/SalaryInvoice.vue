@@ -56,12 +56,12 @@
         :value="getSalaryBrutoValue"
       />
 
-      <!-- <dependent-section
+      <dependent-section
         section="main"
         title="Tanggungan"
-        subtitle="Karyawan ini memiliki tanggungan Rp 570.000"
+        :dataDependent="getSalaryDependentsData"
         dependentTotalLabel="Tanggungan Dibayar"
-      /> -->
+      />
       <!-- <summary-salary /> -->
     </div>
   </div>
