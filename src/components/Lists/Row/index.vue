@@ -12,7 +12,7 @@
         <div class="labelvalue__content has-text-semifade">
           {{
             multiplier
-              ? `${value} x ${totalUnit} ${unit}`
+              ? `${parseNominal('', value,'')} x ${totalUnit} ${unit}`
               : `${totalUnit}${unit}`
           }}
         </div>
@@ -31,17 +31,24 @@
     <template>
       <div
         class="column is-flex nominal__value"
-        :class="[!multiplier && totalUnit === '' ? '' : 'has-text-weight-bold', !showIcon ? 'is-5 has-text-weight-bold' : 'is-4']"
+        :class="[
+          !multiplier && totalUnit === '' ? '' : 'has-text-weight-bold',
+          !showIcon ? 'is-5 has-text-weight-bold' : 'is-4',
+        ]"
         v-if="!multiplier"
       >
-        <span :class="valueColor ? textColorSetter(valueColor) : ''">{{ value }}</span>
+        <span :class="valueColor ? textColorSetter(valueColor) : ''">{{
+          parseNominal('', value, '')
+        }}</span>
       </div>
       <div
         class="column is-flex nominal__value"
-        :class="!showIcon ? 'is-5 has-text-weight-bold' : 'is-4 has-text-weight-bold'"
+        :class="
+          !showIcon ? 'is-5 has-text-weight-bold' : 'is-4 has-text-weight-bold'
+        "
         v-else
       >
-        {{ getSummaryUnitCalc }}
+        {{ parseNominal('', getSummaryUnitCalc, '') }}
       </div>
     </template>
     <div class="column is-flex is-auto action" v-if="showIcon">
@@ -61,6 +68,7 @@
 import IconComponents from '../../IconComponents';
 import EditIcon from '../../IconComponents/EditIcon';
 import DisabledIcon from '../../IconComponents/DisabledIcon';
+import kursRupiahUtil from '../../../utils/kursRupiahUtil';
 export default {
   name: 'RowListItem',
   components: {
@@ -85,12 +93,11 @@ export default {
       default: '',
     },
     totalUnit: {
-      type: String,
       required: false,
       default: '',
     },
     value: {
-      type: String,
+      type: Number,
       required: false,
       default: '',
     },
@@ -121,30 +128,34 @@ export default {
   },
   data() {
     return {
-      colorTable: ['primary','secondary','danger', 'fatal']
-    }
+      colorTable: ['primary', 'secondary', 'danger', 'fatal'],
+    };
   },
   computed: {
     getSummaryUnitCalc() {
       if (this.value && this.totalUnit) {
         return Number(this.value) * Number(this.totalUnit);
       } else {
-        return '';
+        return 0;
       }
     },
   },
   methods: {
     textColorSetter(colorStr) {
-      if(this.colorTable.indexOf(colorStr) !== -1){
+      if (this.colorTable.indexOf(colorStr) !== -1) {
         return `has-text-${colorStr}`;
-      }else{
+      } else {
         return '';
       }
     },
     parseNominal(type, value, cur) {
-      // todo parse nominal such as : type(tanggungan whic use '(-)'), currency label(Rp ) & parse digit separator 
-    }
-  }
+      // todo parse nominal such as : type(tanggungan whic use '(-)'), currency label(Rp ) & parse digit separator
+      if (type === 'dependent') {
+        return `(-) ${kursRupiahUtil(value, cur)}`;
+      }
+      return kursRupiahUtil(value, '');
+    },
+  },
 };
 </script>
 

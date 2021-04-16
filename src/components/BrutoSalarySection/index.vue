@@ -1,0 +1,33 @@
+<template>
+  <div class="py-3 px-4 bruto__salary topbottom--tickborder">
+    <div class="columns bruto__salary-wrapper has-text-secondary">
+      <div class="column is-5 has-text-weight-bold">Total Gaji Kotor</div>
+      <div class="column has-text-weight-bold has-text-right">
+        Rp {{ parseNominal(value) }}
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+import kursRupiahUtil from '../../utils/kursRupiahUtil';
+export default {
+  name: 'BrutoSalarySection',
+  props: {
+    value: {
+      type: Number,
+      required: true,
+    },
+  },
+  methods: {
+    parseNominal(val) {
+      if (val > 0) {
+        return kursRupiahUtil(val, '');
+      }
+      return 0;
+    },
+  },
+};
+</script>
+
+<style></style>

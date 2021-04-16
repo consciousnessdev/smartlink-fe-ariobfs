@@ -4,12 +4,20 @@
       class="has-text-weight-bold py-4 px-4 dependentsection__header bottom--thinborder"
     >
       {{ title }}
-      <div class="subtitle has-text-semifade is-size-7">
-        {{ subtitle }}
+      <div
+        v-if="getSalaryDependentTotalValue > 0"
+        class="subtitle has-text-semifade is-size-7"
+      >
+        {{
+          `Karyawan ini memiliki tanggungan Rp ${getSalaryDependentTotalValue}`
+        }}
       </div>
     </div>
     <!-- Add dependent Button-->
-    <div v-if="section==='main'" class="pt-4 pb-0 px-4 dependentsection__button">
+    <div
+      v-if="section === 'main'"
+      class="pt-4 pb-0 px-4 dependentsection__button"
+    >
       <div class="is-flex dependentsection__add">
         <div class="pr-2 dependentsection__addicon">
           <icon-components icon-name="add-icon">
@@ -26,18 +34,11 @@
     <div class="py-4 px-4 dependentsection__list">
       <div class="dependentsectionlist__item">
         <row
-          label="Ganti Barang Hilang"
-          sublabel="Baju yang hilang warna merah"
-          value="50.000"
-          valueColor="danger"
-          :showIcon="section === 'main'"
-          iconType="edit"
-          iconColor="danger"
-        />
-        <row
-          label="Denda Keterlambatan"
-          sublabel="karena terlambat 3 hari berturut - turut "
-          value="20.000"
+          v-for="(dependent) in dataDependent"
+          :key="dependent.id"
+          :label="dependent.nama"
+          :sublabel="dependent.keterangan"
+          :value="dependent.nominal"
           valueColor="danger"
           :showIcon="section === 'main'"
           iconType="edit"
@@ -45,9 +46,7 @@
         />
       </div>
     </div>
-    <div
-      class="pt-0 pb-4 px-4 dependentsection__subtotal bottom--thickborder"
-    >
+    <div class="pt-0 pb-4 px-4 dependentsection__subtotal bottom--thickborder">
       <div class="top--thindashborder mb-4"></div>
       <div class="columns dependentsection__subtotal-wrapper">
         <div class="column is-7 has-text-weight-bold">
@@ -56,7 +55,7 @@
         <div
           class="column is-5 has-text-weight-bold has-text-right has-text-danger"
         >
-          (-) Rp {{ '70.000' }}
+          (-) Rp {{ getSalaryDependentTotalValue }}
         </div>
       </div>
     </div>
@@ -64,9 +63,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Row from '../Lists/Row';
 import IconComponents from '../IconComponents';
 import AddIcon from '../IconComponents/AddIcon';
+
+import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
   name: 'DependentSection',
   props: {
@@ -78,9 +80,10 @@ export default {
       type: String,
       required: true,
     },
-    subtitle: {
-      type: String,
-      required: false,
+    dataDependent: {
+      type: Array,
+      required: true,
+      default: []
     },
     dependentTotalLabel: {
       type: String,
@@ -91,6 +94,18 @@ export default {
     Row,
     IconComponents,
     AddIcon,
+  },
+  computed: {
+    getSalaryDependentTotalValue() {
+      if (this.dataDependent.length > 0) {
+        let subTotalVal = this.dataDependent.reduce((total, item) => {
+          total += item.nominal;
+          return total;
+        }, 0);
+        return kursRupiahUtil(subTotalVal, '');
+      }
+      return 0;
+    },
   },
 };
 </script>

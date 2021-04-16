@@ -122,6 +122,10 @@ $body-family: 'Overpass', 'Helvetica', 'sans-serif';
 @import './mixins.scss';
 
 // Custom Classes
+.topbottom--tickborder {
+    @include border(top, 12px, solid, #F2F5F7);
+    @include border(bottom, 12px, solid, #F2F5F7);
+}
 .bottom--tickborder {
     @include border(bottom, 12px, solid, #F2F5F7);
 }

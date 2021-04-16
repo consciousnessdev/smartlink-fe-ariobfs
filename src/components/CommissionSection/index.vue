@@ -6,14 +6,19 @@
       {{ title }}
     </div>
     <!-- Add commission Button-->
-    <div v-if="section==='main'" class="pt-4 pb-0 px-4 commissionsection__button">
+    <div
+      v-if="section === 'main'"
+      class="pt-4 pb-0 px-4 commissionsection__button"
+    >
       <div class="is-flex commissionsection__add">
         <div class="pr-2 commissionsection__addicon">
           <icon-components icon-name="add-icon">
             <add-icon />
           </icon-components>
         </div>
-        <div class="commissionsection__addlabel has-text-primary has-font-weight-600">
+        <div
+          class="commissionsection__addlabel has-text-primary has-font-weight-600"
+        >
           Tambah komisi lain...
         </div>
       </div>
@@ -22,31 +27,25 @@
     <div class="py-4 px-4 commissionsection__list">
       <div class="commissionsectionlist__item">
         <row
-          label="Bonus Target 1"
-          value="20000"
+          v-for="(commission) in getSalaryCommissionData"
+          :key="commission.id"
+          :label="commission.nama"
+          :value="commission.nominal"
           :showIcon="section === 'main'"
           iconType="edit"
         />
       </div>
     </div>
-    <div class="pt-0 pb-4 px-4 commissionsection__subtotal bottom--moretickborder">
+    <div
+      class="pt-0 pb-4 px-4 commissionsection__subtotal"
+    >
       <div class="top--thindashborder mb-4"></div>
       <div class="columns commissionsection__subtotal-wrapper">
         <div class="column has-text-weight-bold">
           Subtotal {{ subtotalLabel }}
         </div>
         <div class="column has-text-weight-bold has-text-right">
-          Rp {{ '100.000' }}
-        </div>
-      </div>
-    </div>
-    <div class="py-3 px-4 commissionsection__brutosalary">
-      <div class="columns commissionsection__brutosalary-wrapper has-text-secondary">
-        <div class="column is-5 has-text-weight-bold">
-          Total Gaji Kotor
-        </div>
-        <div class="column has-text-weight-bold has-text-right">
-          Rp {{ '2.824.000' }}
+          Rp {{ subTotalKomisi }}
         </div>
       </div>
     </div>
@@ -54,9 +53,12 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import Row from '../Lists/Row';
 import IconComponents from '../IconComponents';
 import AddIcon from '../IconComponents/AddIcon';
+
+import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
   name: 'CommissionSection',
   props: {
@@ -76,8 +78,22 @@ export default {
   components: {
     Row,
     IconComponents,
-    AddIcon
-  }
+    AddIcon,
+  },
+  computed: {
+    ...mapGetters('salaryinvoiceStore', [
+      'getSalaryCommissionData',
+    ]),
+    subTotalKomisi() {
+      if(this.getSalaryCommissionData.length > 0) {
+        let subTotalVal = this.getSalaryCommissionData.reduce((total, item) => {
+          return total += item.nominal;
+        }, 0)
+        return kursRupiahUtil(subTotalVal, '');
+      }
+      return 0;
+    },
+  },
 };
 </script>
 
