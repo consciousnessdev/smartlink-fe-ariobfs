@@ -4,11 +4,11 @@ import getters from './getters';
 import actions from './actions';
 
 const salaryinvoiceStore = {
-  namespace: true,
+  namespaced: true,
   state,
-  actions,
-  getters,
   mutations,
+  getters,
+  actions,
 };
 
 export default salaryinvoiceStore;

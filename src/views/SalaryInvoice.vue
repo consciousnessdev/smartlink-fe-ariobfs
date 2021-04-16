@@ -5,9 +5,7 @@
         <title-header> Faktur Gaji </title-header>
         <content-header>
           <div class="person__header-wrapper">
-            <div class="has-text-weight-bold person__name">
-              Bu Adara Olivia
-            </div>
+            <div class="has-text-weight-bold person__name">{{getKaryawanName}}</div>
             <div
               class="person__salaryperiode has-font-size-14 has-text-semifade"
             >
@@ -59,6 +57,8 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
+
 // @ is an alias to /src
 import HeaderApps from '@/components/HeaderApps';
 import TitleHeader from '@/components/HeaderApps/TitleHeader';
@@ -69,8 +69,6 @@ import PieceRate from '@/components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
 import DependentSection from '@/components/DependentSection';
 import SummarySalary from '@/components/SummarySalary';
-
-import apiRequestUtil from '../utils/apiRequest';
 
 export default {
   name: 'Home',
@@ -85,10 +83,36 @@ export default {
     DependentSection,
     SummarySalary,
   },
+  computed: {
+    ...mapGetters('salaryinvoiceStore', [
+      'getSalaryInvoiceLoading',
+      'getSalaryEmployeeData',
+      'getSalaryMainSettingData',
+      'getSalaryWageSettingData',
+      'getSalaryWageProcessingSettingData',
+      'getSalaryCommissionData',
+      'getSalaryDependentsData',
+      'getSalaryInvoiceStatus',
+      'getSalaryInvoiceMessage',
+    ]),
+    getKaryawanName() {
+      if(!this.getSalaryEmployeeData) {
+        return '-';
+      } else if (!this.getSalaryEmployeeData && !this.getSalaryEmployeeData.hasOwnProperty('nama_karyawan')) {
+        return '-';
+      }
+      return this.getSalaryEmployeeData.nama_karyawan;
+    },
+  },
+  methods: {
+    ...mapActions('salaryinvoiceStore', ['getSalaryInvoice']),
+  },
   mounted() {
-    apiRequestUtil('/inquiry').then(response => {
-      console.log(response);
+    this.getSalaryInvoice().then(()=> {
+
     });
-  }
+  },
+
+
 };
 </script>
