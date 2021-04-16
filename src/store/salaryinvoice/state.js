@@ -6,6 +6,7 @@ const state = {
   salaryWageProcessingSettingData: [],
   salaryCommissionData:[],
   salaryDependentsData:[],
+  salaryBrutoValue: 0,
   salaryInvoiceStatus: 0,
   salaryInvoiceMessage:'',
 };

@@ -52,6 +52,9 @@
         title="Komisi"
         subtotalLabel="Komisi"
       />
+      <bruto-salary-section
+        :value="getSalaryBrutoValue"
+      />
 
       <!-- <dependent-section
         section="main"
@@ -75,6 +78,7 @@ import SummaryHeader from '@/components/HeaderApps/SummaryHeader';
 import SalarySection from '@/components/SalarySection';
 import PieceRate from '@/components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
+import BrutoSalarySection from '@/components/BrutoSalarySection';
 import DependentSection from '@/components/DependentSection';
 import SummarySalary from '@/components/SummarySalary';
 import LoadingSpinners from '@/components/LoadingSpinners';
@@ -89,6 +93,7 @@ export default {
     SalarySection,
     PieceRate,
     CommissionSection,
+    BrutoSalarySection,
     DependentSection,
     SummarySalary,
     LoadingSpinners,
@@ -106,6 +111,7 @@ export default {
       'getSalaryWageSettingData',
       'getSalaryWageProcessingSettingData',
       'getSalaryCommissionData',
+      'getSalaryBrutoValue',
       'getSalaryDependentsData',
       'getSalaryInvoiceStatus',
       'getSalaryInvoiceMessage',

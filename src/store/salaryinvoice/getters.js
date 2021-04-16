@@ -18,6 +18,9 @@ const getters = {
   getSalaryCommissionData: (state) => {
     return state.salaryCommissionData;
   },
+  getSalaryBrutoValue: (state) => {
+    return state.salaryBrutoValue;
+  },
   getSalaryDependentsData: (state) => {
     return state.salaryDependentsData;
   },
@@ -30,7 +33,7 @@ const getters = {
     if (!state.salaryEmployeeData.hasOwnProperty('total_kehadiran')) {
       return 0;
     }
-    return state.salaryEmployeeData["total_kehadiran"];
+    return state.salaryEmployeeData['total_kehadiran'];
   },
 
   getSalaryInvoiceStatus: (state) => {
