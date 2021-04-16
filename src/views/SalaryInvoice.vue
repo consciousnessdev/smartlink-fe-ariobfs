@@ -40,13 +40,13 @@
         :dataSalary="getSalaryMainSettingData"
         subtotalLabel="Gaji"
       />
-      <!-- <piece-rate 
+      <piece-rate 
         section="main" 
         title="Upah Borongan" 
         :dataWageSetting="getSalaryWageSettingData"
         :dataWageProcessing="getSalaryWageProcessingSettingData"
         subtotalLabel="Upah"
-      /> -->
+      />
       <!-- conditional if has no komisi -->
       <!-- <template v-if="komisi.length > 0"> -->
       <!-- <commission-section

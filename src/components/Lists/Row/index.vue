@@ -38,7 +38,7 @@
         v-if="!multiplier"
       >
         <span :class="valueColor ? textColorSetter(valueColor) : ''">{{
-          value
+          parseNominal('', value, '')
         }}</span>
       </div>
       <div
