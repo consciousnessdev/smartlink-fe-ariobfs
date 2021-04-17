@@ -1,4 +1,7 @@
 const getters = {
+  getFetchState: (state) => {
+    return state.fetchState;
+  },
   getSalaryInvoiceLoading: (state) => {
     return state.isSalaryInvoiceLoading;
   },
@@ -45,6 +48,11 @@ const getters = {
   getSalaryInvoiceMessage: (state) => {
     return state.salaryInvoiceMessage;
   },
+
+  // modal dialog getter
+  getPresenceDlgState: (state) => {
+    return state.presenceSettingDlg;
+  }
 };
 
 export default getters;

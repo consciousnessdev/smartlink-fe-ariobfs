@@ -1,11 +1,21 @@
+export const SET_FETCH_STATE = 'SET_FETCH_STATE';
+
 export const SALARY_INVOICE_LOADING = 'SALARY_INVOICE_LOADING';
 export const SALARY_INVOICE_DATA = 'SALARY_INVOICE_DATA';
 export const SALARY_INVOICE_STATUS = 'SALARY_INVOICE_STATUS';
 export const SALARY_INVOICE_ERROR = 'SALARY_INVOICE_ERROR';
 
+// modal mutation
+export const PRESENCE_DLG_STATE = 'PRESENCE_DLG_STATE';
+
+export const SET_PRESENCE_DAY_STATE = 'SET_PRESENCE_DAY_STATE';
+
 import dateFormatter from '../../utils/dateFormatter';
 
 export default {
+  [SET_FETCH_STATE](state, values) {
+    state.fetchState = values;
+  },
   [SALARY_INVOICE_LOADING](state, values) {
     state.isSalaryInvoiceLoading = values;
   },
@@ -46,4 +56,10 @@ export default {
     state.salaryInvoiceStatus = values.status;
     state.salaryInvoiceMessage = values.messages;
   },
+  [PRESENCE_DLG_STATE](state, values) {
+    state.presenceSettingDlg = values;
+  },
+  [SET_PRESENCE_DAY_STATE](state, values) {
+    state.salaryEmployeeData['total_kehadiran'] = values;
+  }
 };

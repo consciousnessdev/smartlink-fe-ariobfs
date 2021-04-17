@@ -112,6 +112,10 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
 // Start Import customize
 
 // Font
@@ -150,8 +154,16 @@ $body-family: 'Overpass', 'Helvetica', 'sans-serif';
     font-weight: 600;
 }
 
-// End Import customize
+.control__presence {
+  p.control {
+    button.button {
+      color: #206CFF !important
+    }
+  }
+}
 
-// Import Bulma and Buefy styles
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
+.modal-card-head {
+  border-bottom: 1px solid #ededed !important;
+}
+
+// End Import customize

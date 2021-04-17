@@ -23,13 +23,21 @@
         </content-header>
         <summary-header class="py-5">
           <div class="presence__header-wrapper columns">
-            <div class="column presence__day has-text-semifade">
-              Masuk {{getDataChecker('getSalaryEmployeeData', 'total_kehadiran')}} Hari
+            <div class="column is-flex py-0 is-align-items-center presence__day has-text-semifade">
+              Masuk
+              {{ getDataChecker('getSalaryEmployeeData', 'total_kehadiran') }}
+              Hari
             </div>
             <div
-              class="column is-flex is-justify-content-flex-end presence__setting has-text-primary"
+              class="column is-flex py-0 is-justify-content-flex-end presence__setting"
             >
-              Ubah Kehadiran
+              <b-button
+                type="is-text"
+                class="has-text-primary py-0 px-0 presenceday__dlgbutton"
+                @click="showDialog('presence_day')"
+              >
+                Ubah Kehadiran
+              </b-button>
             </div>
           </div>
         </summary-header>
@@ -40,9 +48,9 @@
         :dataSalary="getSalaryMainSettingData"
         subtotalLabel="Gaji"
       />
-      <piece-rate 
-        section="main" 
-        title="Upah Borongan" 
+      <piece-rate
+        section="main"
+        title="Upah Borongan"
         :dataWageSetting="getSalaryWageSettingData"
         :dataWageProcessing="getSalaryWageProcessingSettingData"
         subtotalLabel="Upah"
@@ -52,9 +60,7 @@
         title="Komisi"
         subtotalLabel="Komisi"
       />
-      <bruto-salary-section
-        :value="getSalaryBrutoValue"
-      />
+      <bruto-salary-section :value="getSalaryBrutoValue" />
 
       <dependent-section
         section="main"
@@ -64,6 +70,9 @@
       />
       <netto-salary-section :value="getSalaryNettoValue" />
     </div>
+    <!-- modal component -->
+    <modal-setting :type="dialogType" />
+    <!-- modal component -->
   </div>
 </template>
 
@@ -82,6 +91,7 @@ import BrutoSalarySection from '@/components/BrutoSalarySection';
 import DependentSection from '@/components/DependentSection';
 import NettoSalarySection from '@/components/NettoSalarySection';
 import LoadingSpinners from '@/components/LoadingSpinners';
+import ModalSetting from '@/components/ModalSetting';
 
 export default {
   name: 'Home',
@@ -97,14 +107,16 @@ export default {
     DependentSection,
     NettoSalarySection,
     LoadingSpinners,
+    ModalSetting,
   },
   data() {
     return {
-
-    }
+      dialogType: ''
+    };
   },
   computed: {
     ...mapGetters('salaryinvoiceStore', [
+      'getFetchState',
       'getSalaryInvoiceLoading',
       'getSalaryEmployeeData',
       'getSalaryMainSettingData',
@@ -119,17 +131,29 @@ export default {
     ]),
   },
   methods: {
-    ...mapActions('salaryinvoiceStore', ['getSalaryInvoice']),
+    ...mapActions('salaryinvoiceStore', ['getSalaryInvoice', 'setPresenceDlg']),
     getDataChecker(key, prop) {
       if (!this[key] || !this[key].hasOwnProperty(prop)) {
         return '-';
       }
       return this[key][prop];
     },
+    showDialog(type) {
+      this.dialogType = type;
+      if(type === 'presence_day') {
+        this.setPresenceDlg(true);
+      }
+    },
   },
   mounted() {
-    this.getSalaryInvoice().then(() => {
-    });
+    this.getSalaryInvoice(this.getFetchState);
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.presenceday__dlgbutton {
+  height: auto;
+  widows: auto;
+}
+</style>

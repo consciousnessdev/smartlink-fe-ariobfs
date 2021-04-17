@@ -1,4 +1,5 @@
 const state = {
+  fetchState: false,
   isSalaryInvoiceLoading: true,
   salaryEmployeeData: {},
   salaryMainSettingData: [],
@@ -10,6 +11,14 @@ const state = {
   salaryNettoValue: 0,
   salaryInvoiceStatus: 0,
   salaryInvoiceMessage:'',
+
+  // modal state
+  presenceSettingDlg: false,
+  primarySalarySettingDlg: false,
+  secondarySalarySettingDlg: false,
+  commissionDlg: false,
+  dependentDlg: false,
+  
 };
 
 export default state;
