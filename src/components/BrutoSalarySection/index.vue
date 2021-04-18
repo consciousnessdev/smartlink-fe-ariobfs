@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
   name: 'BrutoSalarySection',
@@ -19,7 +20,10 @@ export default {
       required: true,
     },
   },
+  mounted(){
+  },
   methods: {
+    ...mapActions('salaryinvoiceStore', ['setNettoSalaryValue']),
     parseNominal(val) {
       if (val > 0) {
         return kursRupiahUtil(val, '');
@@ -27,6 +31,11 @@ export default {
       return 0;
     },
   },
+  watch: {
+    value() {
+      this.setNettoSalaryValue();
+    }
+  }
 };
 </script>
 

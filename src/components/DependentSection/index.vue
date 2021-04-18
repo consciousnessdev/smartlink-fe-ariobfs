@@ -18,24 +18,37 @@
       v-if="section === 'main'"
       class="pt-4 pb-0 px-4 dependentsection__button"
     >
-      <div class="is-flex dependentsection__add">
-        <div class="pr-2 dependentsection__addicon">
-          <icon-components icon-name="add-icon">
-            <add-icon />
-          </icon-components>
-        </div>
-        <div
-          class="dependentsection__addlabel has-text-primary has-font-weight-600"
+      <div 
+        class="is-flex dependentsection__add"
+        :class="getSalaryDependentsData.length === 0 ? 'pb-4':''"
         >
-          Tambah pembayaran tanggungan...
-        </div>
+        <a
+          class="button is-text py-0 px-0 dependentsection__addbutton"
+          @click="showDialogDependent"
+        >
+          <span class="pr-2 dependentsection__addicon">
+            <icon-components icon-name="add-icon">
+              <add-icon />
+            </icon-components>
+          </span>
+          <span
+            class="dependentsection__addlabel has-text-primary has-font-weight-600"
+          >
+            Tambah pembayaran tanggungan...
+          </span>
+        </a>
       </div>
     </div>
-    <div class="py-4 px-4 dependentsection__list">
+    <div 
+      class="dependentsection__list"
+      :class="getSalaryDependentsData.length > 0 ? 'pt-4 px-4' : ''"
+    >
       <div class="dependentsectionlist__item">
         <row
-          v-for="(dependent) in dataDependent"
+          v-for="(dependent, index) in getSalaryDependentsData"
           :key="dependent.id"
+          :idSalary="index"
+          unit="dependent"
           :label="dependent.nama"
           :sublabel="dependent.keterangan"
           :value="dependent.nominal"
@@ -63,7 +76,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Row from '../Lists/Row';
 import IconComponents from '../IconComponents';
 import AddIcon from '../IconComponents/AddIcon';
@@ -80,11 +93,6 @@ export default {
       type: String,
       required: true,
     },
-    dataDependent: {
-      type: Array,
-      required: true,
-      default: []
-    },
     dependentTotalLabel: {
       type: String,
       required: true,
@@ -96,15 +104,26 @@ export default {
     AddIcon,
   },
   computed: {
+    ...mapGetters('salaryinvoiceStore', ['getSalaryDependentsData']),
     getSalaryDependentTotalValue() {
-      if (this.dataDependent.length > 0) {
-        let subTotalVal = this.dataDependent.reduce((total, item) => {
+      if (this.getSalaryDependentsData.length > 0) {
+        let subTotalVal = this.getSalaryDependentsData.reduce((total, item) => {
           total += item.nominal;
           return total;
         }, 0);
+        this.setDependentsSalaryValue(subTotalVal);
         return kursRupiahUtil(subTotalVal, '');
       }
       return 0;
+    },
+  },
+  methods: {
+    ...mapActions('salaryinvoiceStore', [
+      'setDependentSalaryDlg',
+      'setDependentsSalaryValue',
+    ]),
+    showDialogDependent() {
+      this.setDependentSalaryDlg(true);
     },
   },
 };
@@ -113,5 +132,9 @@ export default {
 <style lang="scss" scoped>
 .dependentsection__subtotal-wrapper {
   font-size: 18px;
+}
+.dependentsection__addbutton {
+  text-decoration: none !important;
+  height: auto;
 }
 </style>

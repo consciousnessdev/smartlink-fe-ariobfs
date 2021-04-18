@@ -1,4 +1,7 @@
 const getters = {
+  getFetchState: (state) => {
+    return state.fetchState;
+  },
   getSalaryInvoiceLoading: (state) => {
     return state.isSalaryInvoiceLoading;
   },
@@ -18,11 +21,20 @@ const getters = {
   getSalaryCommissionData: (state) => {
     return state.salaryCommissionData;
   },
-  getSalaryBrutoValue: (state) => {
-    return state.salaryBrutoValue;
-  },
   getSalaryDependentsData: (state) => {
     return state.salaryDependentsData;
+  },
+  getSalaryMainValue: (state) => {
+    return state.salaryMainValue;
+  },
+  getSalaryCommissionValue: (state) => {
+    return state.salaryCommissionValue;
+  },
+  getSalaryPieceRateValue: (state) => {
+    return state.salaryPieceRateValue;
+  },
+  getSalaryBrutoValue: (state) => {
+    return state.salaryBrutoValue;
   },
   getSalaryNettoValue: (state) => {
     return state.salaryNettoValue;
@@ -38,12 +50,32 @@ const getters = {
     }
     return state.salaryEmployeeData['total_kehadiran'];
   },
+  getDialogDataObj: (state) => {
+    return state.dialogDataObj;
+  },
 
   getSalaryInvoiceStatus: (state) => {
     return state.salaryInvoiceStatus;
   },
   getSalaryInvoiceMessage: (state) => {
     return state.salaryInvoiceMessage;
+  },
+
+  // modal dialog getter
+  getPresenceDlgState: (state) => {
+    return state.presenceSettingDlg;
+  },
+  getPeriodeSalaryDlgState: (state) => {
+    return state.primarySalarySettingDlg;
+  },
+  getSecondarySalaryDlgState: (state) => {
+    return state.secondarySalarySettingDlg;
+  },
+  getCommissionSalaryDlgState: (state) => {
+    return state.commissionDlg;
+  },
+  getDependentSalaryDlgState: (state) => {
+    return state.dependentDlg;
   },
 };
 

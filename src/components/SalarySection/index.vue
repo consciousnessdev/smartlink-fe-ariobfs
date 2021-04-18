@@ -8,6 +8,7 @@
         <row
           v-for="salary in dataSalary"
           :key="salary.id"
+          :idSalary="salary.id"
           :label="salary.nama"
           :totalUnit="setMultiplierType(salary.jenis)"
           :unit="salary.jenis"
@@ -16,42 +17,6 @@
           :showIcon="section === 'main'"
           iconType="edit"
         />
-        <!-- <row
-          label="Uang Makan"
-          totalUnit="22"
-          unit="kehadiran"
-          value="10000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Absen"
-          totalUnit="22"
-          unit="kehadiran"
-          value="12000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Transport"
-          totalUnit="22"
-          unit="kehadiran"
-          value="15000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Snack"
-          totalUnit="22"
-          unit="kehadiran"
-          value="5000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        /> -->
       </div>
     </div>
     <div class="pt-0 pb-4 px-4 salary__subtotal">
@@ -69,7 +34,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Row from '../Lists/Row';
 import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
@@ -103,12 +68,14 @@ export default {
         let subTotalVal = this.dataSalary.reduce((total, item) => {
           return total += item.jenis === 'periode' ? item.nominal * this.getPeriod : item.nominal * this.getPresenceDay
         }, 0)
+        this.setMainSalaryValue(subTotalVal);
         return kursRupiahUtil(subTotalVal, '');
       }
       return 0;
     },
   },
   methods: {
+    ...mapActions('salaryinvoiceStore', ['setMainSalaryValue']),
     setMultiplierType(currentType) {
       if (currentType === 'periode') {
         return this.getPeriod;
@@ -116,6 +83,19 @@ export default {
       return this.getPresenceDay;
     },
   },
+  watch: {
+    subTotalGaji() {
+      // console.log(newVal);
+      // if(this.getSalaryBrutoValue !== 0) {
+      //   if(this.getSalaryBrutoValue >= oldVal) {
+      //     const newSalaryValue = (this.getSalaryBrutoValue - oldVal) + newVal;
+      //     this.setBrutoSalaryValue(newSalaryValue);  
+      //   }
+      // }else{
+      //   this.setBrutoSalaryValue(newVal);
+      // }
+    }
+  }
 };
 </script>
 

@@ -12,6 +12,7 @@
         <row
           v-for="(wageSetting, i) in dataWageSetting"
           :key="wageSetting.id"
+          :idSalary="wageSetting.id"
           :label="wageSetting.nama"
           :totalUnit="dataWageProcessing[i].nominal"
           :unit="dataWageProcessing[i].satuan"
@@ -19,14 +20,6 @@
           :showIcon="section === 'main'"
           iconType="disabled"
         />
-        <!-- <row
-          label="Menyetrika"
-          totalUnit="50"
-          unit="KG"
-          value="80000"
-          :showIcon="section === 'main'"
-          iconType="disabled"
-        /> -->
       </div>
     </div>
 
@@ -45,6 +38,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Row from '../../components/Lists/Row';
 import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
@@ -81,27 +75,38 @@ export default {
   },
   computed: {
     subTotalUpah() {
-      if ((this.dataWageSetting.length > 0 && this.dataWageProcessing.length > 0)) {
+      if (
+        this.dataWageSetting.length > 0 &&
+        this.dataWageProcessing.length > 0
+      ) {
         let subTotalVal = this.dataWageSetting.reduce((total, item, i) => {
           return (total += item.nominal * this.dataWageProcessing[i].nominal);
         }, 0);
+        this.setPieceRateSalaryValue(subTotalVal);
         return kursRupiahUtil(subTotalVal, '');
       }
       return 0;
     },
   },
   methods: {
+    ...mapActions('salaryinvoiceStore', ['setPieceRateSalaryValue']),
     multiplierVal(multi, value) {
-      return kursRupiahUtil(multi * value , '');
+      return kursRupiahUtil(multi * value, '');
     },
   },
 };
 </script>
 
 <style lang="scss">
-.nominal__value {
-  align-items: flex-start;
-  justify-content: flex-end;
+.pieceratelist__item {
+  .label__value {
+    padding-bottom: 0;
+  }
+  .nominal__value {
+    padding-bottom: 0;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
 }
 
 .action {
