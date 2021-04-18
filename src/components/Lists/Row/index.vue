@@ -157,6 +157,7 @@ export default {
       'setPeriodeSalaryDlg',
       'setSecondarySalaryDlg',
       'setCommissionSalaryDlg',
+      'setDependentSalaryDlg',
       'setIndexData',
     ]),
     textColorSetter(colorStr) {
@@ -195,6 +196,15 @@ export default {
           }
           this.setIndexData(commissionUnitObj);
           this.setCommissionSalaryDlg(true);
+          break;
+        case 'dependent':
+          const dependentUnitObj = {
+            dialog_type: 'edit',
+            keyData: 'salaryDependentsData',
+            indexData: index
+          }
+          this.setIndexData(dependentUnitObj);
+          this.setDependentSalaryDlg(true);
           break;
         default:
           return;

@@ -13,17 +13,20 @@ export const COMMISSION_SALARY_DLG_STATE = 'COMMISSION_SALARY_DLG_STATE';
 export const DEPENDENT_SALARY_DLG_STATE = 'DEPENDENT_SALARY_DLG_STATE';
 
 export const ADD_COMMISSION_SALARY_STATE = 'ADD_COMMISSION_SALARY_STATE';
+export const ADD_DEPENDENT_SALARY_STATE = 'ADD_DEPENDENT_SALARY_STATE';
 
 export const SET_PRESENCE_DAY_STATE = 'SET_PRESENCE_DAY_STATE';
 export const SET_PRIMARY_SALARY_STATE = 'SET_PRIMARY_SALARY_STATE';
 export const SET_SECONDARY_SALARY_STATE = 'SET_SECONDARY_SALARY_STATE';
 export const SET_COMMISSION_SALARY_STATE = 'SET_COMMISSION_SALARY_STATE';
+export const SET_DEPENDENT_SALARY_STATE = 'SET_DEPENDENT_SALARY_STATE';
 
 // subtotal data mutation
 export const SET_MAIN_SALARY_VALUE = 'SET_MAIN_SALARY_VALUE';
 export const SET_PIECERATE_SALARY_VALUE = 'SET_PIECERATE_SALARY_VALUE';
 export const SET_COMMISSION_SALARY_VALUE = 'SET_COMMISSION_SALARY_VALUE';
 export const SET_BRUTO_SALARY_VALUE = 'SET_BRUTO_SALARY_VALUE';
+export const SET_DEPENDENT_SALARY_VALUE = 'SET_DEPENDENT_SALARY_VALUE';
 export const SET_NETTO_SALARY_VALUE = 'SET_NETTO_SALARY_VALUE';
 
 // index data mutation
@@ -67,6 +70,12 @@ export default {
     state.salaryWageProcessingSettingData = [...pengerjaan_upah];
     state.salaryCommissionData = [...komisi];
     state.salaryDependentsData = [...tanggungan];
+    state.salaryMainValue = 0;
+    state.salaryPieceRateValue = 0;
+    state.salaryCommission = 0;
+    state.salaryBrutoValue = 0;
+    state.salaryDependentValue = 0;
+    state.salaryNettoValue = 0;
   },
   [SALARY_INVOICE_STATUS](state, values) {
     state.salaryInvoiceStatus = values.status;
@@ -116,6 +125,11 @@ export default {
     populateCommissionState.push(values);
     state.salaryCommissionData = populateCommissionState;
   },
+  [ADD_DEPENDENT_SALARY_STATE](state, values) {
+    let populateDependentState = [...state.salaryDependentsData];
+    populateDependentState.push(values);
+    state.salaryDependentsData = populateDependentState;
+  },
 
   [SET_PRESENCE_DAY_STATE](state, values) {
     state.salaryEmployeeData['total_kehadiran'] = values;
@@ -160,6 +174,15 @@ export default {
     populateDataCommission[index] = Object.assign({}, { nama, nominal });
     state.salaryCommissionData = [...populateDataCommission];
   },
+  [SET_DEPENDENT_SALARY_STATE](state, values) {
+    const { index, nama, nominal, keterangan } = values;
+    let populateDataDependent = [...state.salaryDependentsData];
+    populateDataDependent[index] = Object.assign(
+      {},
+      { nama, nominal, keterangan }
+    );
+    state.salaryDependentsData = [...populateDataDependent];
+  },
   [SET_MAIN_SALARY_VALUE](state, values) {
     state.salaryMainValue = values;
   },
@@ -169,25 +192,19 @@ export default {
   [SET_COMMISSION_SALARY_VALUE](state, values) {
     state.salaryCommissionValue = values;
   },
-  [SET_BRUTO_SALARY_VALUE](state, values) {
+  [SET_BRUTO_SALARY_VALUE](state) {
     const sumBrutoSalaryIndicator =
       state.salaryMainValue +
       state.salaryPieceRateValue +
       state.salaryCommissionValue;
-    if (values !== sumBrutoSalaryIndicator) {
-      state.salaryBrutoValue = sumBrutoSalaryIndicator;
-    } else {
-      state.salaryBrutoValue = values;
-    }
+    state.salaryBrutoValue = sumBrutoSalaryIndicator;
   },
-  [SET_NETTO_SALARY_VALUE](state, values) {
+  [SET_DEPENDENT_SALARY_VALUE](state, values) {
+    state.salaryDependentValue = values;
+  },
+  [SET_NETTO_SALARY_VALUE](state) {
     const sumNettoSalaryIndicator =
-      state.salaryBrutoValue -
-      state.salaryDependentValue;
-    if (values !== sumNettoSalaryIndicator) {
-      state.salaryNettoValue = sumNettoSalaryIndicator;
-    } else {
-      state.salaryNettoValue = values;
-    }
+      state.salaryBrutoValue - state.salaryDependentValue;
+    state.salaryNettoValue = sumNettoSalaryIndicator;
   },
 };

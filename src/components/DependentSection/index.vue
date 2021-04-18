@@ -111,6 +111,7 @@ export default {
           total += item.nominal;
           return total;
         }, 0);
+        this.setDependentsSalaryValue(subTotalVal);
         return kursRupiahUtil(subTotalVal, '');
       }
       return 0;

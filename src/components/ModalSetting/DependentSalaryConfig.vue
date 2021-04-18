@@ -86,7 +86,7 @@
           expanded
           type="is-primary"
           native-type="submit"
-          @click.prevent="submitCommissionSalary"
+          @click.prevent="submitDependentSalary"
           :disabled="dependentNama === '' || dependentNominal === 0 || dependentNominal === '' || dependentInfo === ''"
         />
       </footer>
@@ -118,10 +118,10 @@ export default {
   mounted() {
     this.dependentDlgState = this.getDialogDataObj?.dialog_type || 'add';
     if (this.getDialogDataObj['dialog_type'] === 'edit') {
-      const { nama, nominal, info } = this.getDialogDataObj;
+      const { nama, nominal, keterangan } = this.getDialogDataObj;
       this.dependentNama = nama;
       this.dependentNominal = nominal;
-      this.dependentInfo = info;
+      this.dependentInfo = keterangan;
     }
   },
   filters: {
@@ -152,14 +152,14 @@ export default {
       const {
         dependentNama: nama,
         dependentNominal,
-        dependentInfo: info,
+        dependentInfo: keterangan,
       } = this;
       const nominal = Number(dependentNominal);
       if (this.dependentDlgState === 'edit') {
         const { indexData: index } = this.getDialogDataObj;
-        this.setDependentSalaryItem({ index, nama, nominal, info });
+        this.setDependentSalaryItem({ index, nama, nominal, keterangan });
       } else {
-        this.addDependentSalaryItem({ nama, nominal, info });
+        this.addDependentSalaryItem({ nama, nominal, keterangan });
       }
     },
   },

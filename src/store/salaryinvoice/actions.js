@@ -14,12 +14,15 @@ import {
   DEPENDENT_SALARY_DLG_STATE,
   ADD_COMMISSION_SALARY_STATE,
   SET_COMMISSION_SALARY_STATE,
+  ADD_DEPENDENT_SALARY_STATE,
+  SET_DEPENDENT_SALARY_STATE,
   SET_INDEX_DATA_DLG,
   UNSET_INDEX_DATA_DLG,
   SET_MAIN_SALARY_VALUE,
   SET_PIECERATE_SALARY_VALUE,
   SET_COMMISSION_SALARY_VALUE,
   SET_BRUTO_SALARY_VALUE,
+  SET_DEPENDENT_SALARY_VALUE,
   SET_NETTO_SALARY_VALUE,
 } from './mutations';
 
@@ -125,6 +128,24 @@ const actions = {
     commit(SET_COMMISSION_SALARY_STATE, commissionSalaryVal);
     return new Promise((resolve, reject) => {
       commit(COMMISSION_SALARY_DLG_STATE, false);
+      resolve();
+    }).catch((error) => {
+      throw Error(error);
+    });
+  },
+  addDependentSalaryItem({ commit }, dependentItemObj) {
+    commit(ADD_DEPENDENT_SALARY_STATE, dependentItemObj);
+    return new Promise((resolve, reject) => {
+      commit(DEPENDENT_SALARY_DLG_STATE, false);
+      resolve();
+    }).catch((error) => {
+      throw Error(error);
+    });
+  },
+  setDependentSalaryItem({ commit }, dependentSalaryVal) {
+    commit(SET_DEPENDENT_SALARY_STATE, dependentSalaryVal);
+    return new Promise((resolve, reject) => {
+      commit(DEPENDENT_SALARY_DLG_STATE, false);
       resolve();
     }).catch((error) => {
       throw Error(error);
