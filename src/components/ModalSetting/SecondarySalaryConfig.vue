@@ -3,12 +3,12 @@
     <div class="modal-card" style="width: 360px">
       <header class="modal-card-head px-4 py-4 has-background-white">
         <p
-          class="modal-card-title ml-3 periodesalary__header-text has-text-centered has-text-weight-bold"
+          class="modal-card-title ml-3 secondarysalary__header-text has-text-centered has-text-weight-bold"
         >
-          Ubah Gaji Pokok
+          Ubah Uang Absen/Transport/Lembur
         </p>
         <a
-          class="button is-white px-0 py-0 periodesalary__header-close"
+          class="button is-white px-0 py-0 secondarysalary__header-close"
           @click="$emit('close')"
         >
           <icon-components icon-name="close-icon"
@@ -55,13 +55,7 @@
             </svg>
           </b-field>
           <b-field class="column">
-            <b-input
-              v-model="periodesalaryQty"
-              @input.native="handleNominal"
-            ></b-input>
-            <p class="control">
-              <span class="button is-static">Periode</span>
-            </p>
+            <p class="secondarysalary__presenceday">{{getPresenceDay}} Hari</p>
           </b-field>
         </div>
         <div class="pb-1 fieldcalc__label pt-2 top--thindashborder">
@@ -72,15 +66,15 @@
         </div>
       </section>
       <footer
-        class="modal-card-foot px-4 pb-4 pt-0 has-background-white periodesalary__footer"
+        class="modal-card-foot px-4 pb-4 pt-0 has-background-white secondarysalary__footer"
       >
         <b-button
           label="Simpan"
           expanded
           type="is-primary"
           native-type="submit"
-          @click.prevent="submitSalaryPeriode"
-          :disabled="salaryNominal === '' || periodesalaryQty === ''"
+          @click.prevent="submitSecondaySalary"
+          :disabled="salaryNominal === ''"
         />
       </footer>
     </div>
@@ -93,50 +87,48 @@ import IconComponents from '../IconComponents';
 import CloseIcon from '../IconComponents/CloseIcon';
 import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
-  name: 'PeriodeSalaryConfig',
+  name: 'SecondarySalaryConfig',
   components: {
     IconComponents,
     CloseIcon,
   },
   computed: {
-    ...mapGetters('salaryinvoiceStore', ['getPeriod', 'getDialogDataObj']),
+    ...mapGetters('salaryinvoiceStore', ['getPresenceDay', 'getDialogDataObj']),
     calculateValue() {
-      let totalMultiplier = this.salaryNominal * this.periodesalaryQty;
+      let totalMultiplier = this.salaryNominal * this.getPresenceDay;
       return kursRupiahUtil(totalMultiplier, 'Rp ');
     },
   },
   data() {
     return {
-      periodesalaryQty: 0,
       salaryNominal: 0,
     };
   },
   mounted() {
-    this.periodesalaryQty = this.getPeriod;
     this.salaryNominal = this.getDialogDataObj['nominal'];
   },
   filters: {
     // TODO: format currency on input
     formatCurrency(value) {
       return value;
-    }
+    },
   },
   methods: {
-    ...mapActions('salaryinvoiceStore', ['setPeriodeSalaryCount']),
+    ...mapActions('salaryinvoiceStore', ['setSecondarySalaryCount']),
     handleNominal(event) {
       event.target.value = event.target.value.replace(/[^0-9]+/g, '');
     },
-    submitSalaryPeriode() {
+    submitSecondaySalary() {
       const { id } = this.getDialogDataObj;
-      const { periodesalaryQty: periode, salaryNominal: value } = this;
-      this.setPeriodeSalaryCount({ id, periode, value });
+      const { salaryNominal: value } = this;
+      this.setSecondarySalaryCount({ id, value });
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.periodesalary {
+.secondarysalary {
   &__header {
     &-text {
       font-size: 16px;
@@ -144,6 +136,10 @@ export default {
     &-close {
       height: auto;
     }
+  }
+  &__presenceday {
+    padding-bottom: calc(0.5em - 1px);
+    padding-top: calc(0.5em - 1px);
   }
   &__footer {
     border-top: none;

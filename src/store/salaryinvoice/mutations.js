@@ -8,9 +8,11 @@ export const SALARY_INVOICE_ERROR = 'SALARY_INVOICE_ERROR';
 // modal mutation
 export const PRESENCE_DLG_STATE = 'PRESENCE_DLG_STATE';
 export const PRIMARY_SALARY_DLG_STATE = 'PRIMARY_SALARY_DLG_STATE';
+export const SECONDARY_SALARY_DLG_STATE = 'SECONDARY_SALARY_DLG_STATE';
 
 export const SET_PRESENCE_DAY_STATE = 'SET_PRESENCE_DAY_STATE';
 export const SET_PRIMARY_SALARY_STATE = 'SET_PRIMARY_SALARY_STATE';
+export const SET_SECONDARY_SALARY_STATE = 'SET_SECONDARY_SALARY_STATE';
 
 // index data mutation
 export const SET_INDEX_DATA_DLG = 'SET_INDEX_DATA_DLG';
@@ -64,10 +66,10 @@ export default {
   },
   [PRESENCE_DLG_STATE](state, values) {
     state.presenceSettingDlg = values;
-    state.primarySalarySettingDlg= false;
-    state.secondarySalarySettingDlg= false;
-    state.commissionDlg= false;
-    state.dependentDlg= false;
+    state.primarySalarySettingDlg = false;
+    state.secondarySalarySettingDlg = false;
+    state.commissionDlg = false;
+    state.dependentDlg = false;
   },
   [PRIMARY_SALARY_DLG_STATE](state, values) {
     state.primarySalarySettingDlg = values;
@@ -76,25 +78,40 @@ export default {
     state.commissionDlg = false;
     state.dependentDlg = false;
   },
+  [SECONDARY_SALARY_DLG_STATE](state, values) {
+    state.secondarySalarySettingDlg = values;
+    state.primarySalarySettingDlg = false;
+    state.presenceSettingDlg = false;
+    state.commissionDlg = false;
+    state.dependentDlg = false;
+  },
+
   [SET_PRESENCE_DAY_STATE](state, values) {
     state.salaryEmployeeData['total_kehadiran'] = values;
   },
   [SET_INDEX_DATA_DLG](state, values) {
-    const {keyData, indexData} = values;
-    const parseStateObj = state[keyData].find(item => item.id === indexData);
+    const { keyData, indexData } = values;
+    const parseStateObj = state[keyData].find((item) => item.id === indexData);
     state.dialogDataObj = parseStateObj;
   },
   [UNSET_INDEX_DATA_DLG](state, values) {
     state.dialogDataObj = values;
   },
   [SET_PRIMARY_SALARY_STATE](state, values) {
-    if(values.periode) {
+    if (values.periode) {
       state.salaryEmployeeData['total_periode'] = values.periode;
     }
-    const { id, value} = values;
-    const matchIdIndex = state
-      .salaryMainSettingData.map((item) => item.id)
+    const { id, value } = values;
+    const matchIdIndex = state.salaryMainSettingData
+      .map((item) => item.id)
       .indexOf(id);
     state.salaryMainSettingData[matchIdIndex]['nominal'] = Number(value);
-  }
+  },
+  [SET_SECONDARY_SALARY_STATE](state, values) {
+    const { id, value } = values;
+    const matchIdIndex = state.salaryMainSettingData
+      .map((item) => item.id)
+      .indexOf(id);
+    state.salaryMainSettingData[matchIdIndex]['nominal'] = Number(value);
+  },
 };

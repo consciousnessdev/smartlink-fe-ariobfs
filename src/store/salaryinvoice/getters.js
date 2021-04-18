@@ -58,7 +58,11 @@ const getters = {
   },
   getPeriodeSalaryDlgState: (state) => {
     return state.primarySalarySettingDlg;
+  },
+  getSecondarySalaryDlgState: (state) => {
+    return state.secondarySalarySettingDlg;
   }
+  
 };
 
 export default getters;

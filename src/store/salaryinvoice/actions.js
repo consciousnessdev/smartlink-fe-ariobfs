@@ -8,6 +8,8 @@ import {
   SET_PRESENCE_DAY_STATE,
   PRIMARY_SALARY_DLG_STATE,
   SET_PRIMARY_SALARY_STATE,
+  SECONDARY_SALARY_DLG_STATE,
+  SET_SECONDARY_SALARY_STATE,
   SET_INDEX_DATA_DLG,
   UNSET_INDEX_DATA_DLG,
 } from './mutations';
@@ -61,6 +63,9 @@ const actions = {
   setPeriodeSalaryDlg({ commit }, periodeSalaryDlgState) {
     commit(PRIMARY_SALARY_DLG_STATE, periodeSalaryDlgState);
   },
+  setSecondarySalaryDlg({ commit }, secondarySalaryDlgState) {
+    commit(SECONDARY_SALARY_DLG_STATE, secondarySalaryDlgState);
+  },
 
   // dialog submit data action
   setPresenceDayCount({ commit }, presenceDayVal) {
@@ -77,6 +82,16 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit(UNSET_INDEX_DATA_DLG, {});
       commit(PRIMARY_SALARY_DLG_STATE, false);
+      resolve();
+    }).catch((error) => {
+      throw Error(error);
+    });
+  },
+  setSecondarySalaryCount({ commit }, secondarySalaryVal) {
+    commit(SET_SECONDARY_SALARY_STATE, secondarySalaryVal);
+    return new Promise((resolve, reject) => {
+      commit(UNSET_INDEX_DATA_DLG, {});
+      commit(SECONDARY_SALARY_DLG_STATE, false);
       resolve();
     }).catch((error) => {
       throw Error(error);

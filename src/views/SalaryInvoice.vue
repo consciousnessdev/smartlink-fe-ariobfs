@@ -52,7 +52,7 @@
         :dataSalary="getSalaryMainSettingData"
         subtotalLabel="Gaji"
       />
-      <!-- START Salary List : Information about salary & each setting  -->
+      <!-- END Salary List : Information about salary & each setting  -->
       <!-- <piece-rate
         section="main"
         title="Upah Borongan"

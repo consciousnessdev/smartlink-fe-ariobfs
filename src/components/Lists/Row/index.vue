@@ -153,7 +153,11 @@ export default {
     },
   },
   methods: {
-    ...mapActions('salaryinvoiceStore', ['setPeriodeSalaryDlg', 'setIndexData']),
+    ...mapActions('salaryinvoiceStore', [
+      'setPeriodeSalaryDlg',
+      'setSecondarySalaryDlg',
+      'setIndexData',
+    ]),
     textColorSetter(colorStr) {
       if (this.colorTable.indexOf(colorStr) !== -1) {
         return `has-text-${colorStr}`;
@@ -169,15 +173,18 @@ export default {
       return kursRupiahUtil(value, '');
     },
     showDialogBySalaryUnit(unitType, index) {
+      const salaryUnitObj = {
+        keyData: 'salaryMainSettingData',
+        indexData: index,
+      };
       switch (unitType) {
         case 'periode':
-          this.setIndexData({
-            keyData:'salaryMainSettingData',
-            indexData: index
-          });
+          this.setIndexData(salaryUnitObj);
           this.setPeriodeSalaryDlg(true);
           break;
         case 'kehadiran':
+          this.setIndexData(salaryUnitObj);
+          this.setSecondarySalaryDlg(true);
           break;
         default:
           return;

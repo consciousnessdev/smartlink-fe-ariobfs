@@ -1,12 +1,13 @@
 <template>
   <section>
+    <!-- START Presence dialog -->
     <b-modal
       v-model="getPresenceDlgState"
       has-modal-card
       trap-focus
       :destroy-on-hide="true"
       aria-role="dialog"
-      aria-label="Example Modal"
+      aria-label="Presence Day Modal"
       aria-modal
     >
       <template #default="props">
@@ -16,13 +17,16 @@
         ></presence-day-config>
       </template>
     </b-modal>
+    <!-- END Presence dialog -->
+
+    <!-- START Periode Salary dialog -->
     <b-modal
       v-model="getPeriodeSalaryDlgState"
       has-modal-card
       trap-focus
       :destroy-on-hide="true"
       aria-role="dialog"
-      aria-label="Example Modal"
+      aria-label="Periode Salary Modal"
       aria-modal
     >
       <template #default="props">
@@ -32,6 +36,27 @@
         </periode-salary-config>
       </template>
     </b-modal>
+    <!-- END Periode Salary dialog -->
+
+    <!-- START Secondary Salary dialog -->
+    <b-modal
+      v-model="getSecondarySalaryDlgState"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="true"
+      aria-role="dialog"
+      aria-label="Seconday Salary Modal"
+      aria-modal
+      :can-cancel="['x']"
+    >
+      <template #default="props">
+        <secondary-salary-config
+          @close="props.close"
+        >
+        </secondary-salary-config>
+      </template>
+    </b-modal>
+    <!-- END Secondary Salary dialog -->
   </section>
 </template>
 
@@ -39,11 +64,13 @@
 import { mapActions, mapGetters } from 'vuex';
 import PresenceDayConfig from './PresenceDayConfig';
 import PeriodeSalaryConfig from './PeriodeSalaryConfig';
+import SecondarySalaryConfig from './SecondarySalaryConfig';
 export default {
   name: 'Modal',
   components: {
     PresenceDayConfig,
     PeriodeSalaryConfig,
+    SecondarySalaryConfig
   },
   computed: {
     ...mapGetters('salaryinvoiceStore', ['getPresenceDay']),
@@ -62,13 +89,26 @@ export default {
       set(value) {
         this.setPeriodeSalaryDlg(value);
       },
+    },
+    getSecondarySalaryDlgState: {
+      get() {
+        return this.$store.getters['salaryinvoiceStore/getSecondarySalaryDlgState'];
+      },
+      set(value) {
+        this.setSecondarySalaryDlg(value);
+      },
     }
   },
   methods: {
-    ...mapActions('salaryinvoiceStore', ['setPresenceDlg', 'setPeriodeSalaryDlg','unsetIndexData'])
+    ...mapActions('salaryinvoiceStore', ['setPresenceDlg', 'setPeriodeSalaryDlg', 'setSecondarySalaryDlg','unsetIndexData'])
   },
   watch: {
     getPeriodeSalaryDlgState(newVal) {
+      if(newVal === false) {
+        this.unsetIndexData();
+      }
+    },
+    getSecondarySalaryDlgState(newVal) {
       if(newVal === false) {
         this.unsetIndexData();
       }
