@@ -60,7 +60,7 @@
       trap-focus
       :destroy-on-hide="true"
       aria-role="dialog"
-      aria-label="Seconday Salary Modal"
+      aria-label="Commission Salary Modal"
       aria-modal
       :can-cancel="['x']"
     >
@@ -69,7 +69,26 @@
         </commission-salary-config>
       </template>
     </b-modal>
-    <!-- START Commission Salary dialog -->
+    <!-- END Commission Salary dialog -->
+
+    <!-- START Dependent Salary dialog -->
+    <b-modal
+      v-model="getDependentSalaryDlgState"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="true"
+      aria-role="dialog"
+      aria-label="Dependent Salary Modal"
+      aria-modal
+      :can-cancel="['x']"
+    >
+      <template #default="props">
+        <dependent-salary-config @close="props.close">
+        </dependent-salary-config>
+      </template>
+    </b-modal>
+    <!-- END Dependent Salary dialog -->
+
   </section>
 </template>
 
@@ -79,6 +98,7 @@ import PresenceDayConfig from './PresenceDayConfig';
 import PeriodeSalaryConfig from './PeriodeSalaryConfig';
 import SecondarySalaryConfig from './SecondarySalaryConfig';
 import CommissionSalaryConfig from './CommissionSalaryConfig';
+import DependentSalaryConfig from './DependentSalaryConfig';
 export default {
   name: 'Modal',
   components: {
@@ -86,6 +106,7 @@ export default {
     PeriodeSalaryConfig,
     SecondarySalaryConfig,
     CommissionSalaryConfig,
+    DependentSalaryConfig
   },
   computed: {
     ...mapGetters('salaryinvoiceStore', ['getPresenceDay']),
@@ -127,6 +148,16 @@ export default {
         this.setCommissionSalaryDlg(value);
       },
     },
+    getDependentSalaryDlgState: {
+      get() {
+        return this.$store.getters[
+          'salaryinvoiceStore/getDependentSalaryDlgState'
+        ];
+      },
+      set(value) {
+        this.setDependentSalaryDlg(value);
+      },
+    }
   },
   methods: {
     ...mapActions('salaryinvoiceStore', [
@@ -134,6 +165,7 @@ export default {
       'setPeriodeSalaryDlg',
       'setSecondarySalaryDlg',
       'setCommissionSalaryDlg',
+      'setDependentSalaryDlg',
       'unsetIndexData',
     ]),
   },
@@ -149,6 +181,11 @@ export default {
       }
     },
     getCommissionSalaryDlgState(newVal) {
+      if (newVal === false) {
+        this.unsetIndexData();
+      }
+    },
+    getDependentSalaryDlgState(newVal) {
       if (newVal === false) {
         this.unsetIndexData();
       }

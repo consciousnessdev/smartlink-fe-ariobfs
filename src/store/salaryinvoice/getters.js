@@ -74,6 +74,9 @@ const getters = {
   getCommissionSalaryDlgState: (state) => {
     return state.commissionDlg;
   },
+  getDependentSalaryDlgState: (state) => {
+    return state.dependentDlg;
+  },
 };
 
 export default getters;

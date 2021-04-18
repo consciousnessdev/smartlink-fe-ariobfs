@@ -10,6 +10,7 @@ export const PRESENCE_DLG_STATE = 'PRESENCE_DLG_STATE';
 export const PRIMARY_SALARY_DLG_STATE = 'PRIMARY_SALARY_DLG_STATE';
 export const SECONDARY_SALARY_DLG_STATE = 'SECONDARY_SALARY_DLG_STATE';
 export const COMMISSION_SALARY_DLG_STATE = 'COMMISSION_SALARY_DLG_STATE';
+export const DEPENDENT_SALARY_DLG_STATE = 'DEPENDENT_SALARY_DLG_STATE';
 
 export const ADD_COMMISSION_SALARY_STATE = 'ADD_COMMISSION_SALARY_STATE';
 
@@ -103,6 +104,13 @@ export default {
     state.secondarySalarySettingDlg = false;
     state.dependentDlg = false;
   },
+  [DEPENDENT_SALARY_DLG_STATE](state, values) {
+    state.dependentDlg = values;
+    state.presenceSettingDlg = false;
+    state.primarySalarySettingDlg = false;
+    state.secondarySalarySettingDlg = false;
+    state.commissionDlg = false;
+  },
   [ADD_COMMISSION_SALARY_STATE](state, values) {
     let populateCommissionState = [...state.salaryCommissionData];
     populateCommissionState.push(values);
@@ -174,9 +182,7 @@ export default {
   },
   [SET_NETTO_SALARY_VALUE](state, values) {
     const sumNettoSalaryIndicator =
-      state.salaryMainValue +
-      state.salaryPieceRateValue +
-      state.salaryCommissionValue -
+      state.salaryBrutoValue -
       state.salaryDependentValue;
     if (values !== sumNettoSalaryIndicator) {
       state.salaryNettoValue = sumNettoSalaryIndicator;

@@ -76,14 +76,16 @@
       <bruto-salary-section :value="getSalaryBrutoValue" />
       <!-- END Bruto Salary Section : Information about bruto salary  -->
       
-      <!-- 
+      <!-- START Dependent Section : Information about dependent list & add/edit dialog  -->
       <dependent-section
         section="main"
         title="Tanggungan"
-        :dataDependent="getSalaryDependentsData"
         dependentTotalLabel="Tanggungan Dibayar"
       />
-      <netto-salary-section :value="getSalaryNettoValue" /> -->
+      <!-- END Dependent Section : Information about dependent list & add/edit dialog  -->
+      <!-- START Netto Salary Section : Information about netto salary  -->
+      <netto-salary-section :value="getSalaryNettoValue" />
+      <!-- END Netto Salary Section : Information about netto salary  -->
     </div>
     <!-- modal component -->
     <modal-setting />

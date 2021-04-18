@@ -7,7 +7,10 @@
     </div>
     <!-- Add commission Button-->
     <div v-if="section === 'main'" class="pt-4 px-4 commissionsection__button">
-      <div class="is-flex commissionsection__add">
+      <div 
+        class="is-flex commissionsection__add"
+        :class="getSalaryCommissionData.length === 0 ? 'pb-4':''"
+      >
         <a
           class="button is-text py-0 px-0 commissionsection__addbutton"
           @click="showDialogCommission"

@@ -36,6 +36,7 @@
 <script>
 import IconComponents from '../IconComponents';
 import CheckFillIcon from '../IconComponents/CheckFillIcon';
+import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
   name: 'NettoSalarySection',
   components: {

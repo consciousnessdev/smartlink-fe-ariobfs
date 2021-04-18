@@ -11,6 +11,7 @@ import {
   SECONDARY_SALARY_DLG_STATE,
   SET_SECONDARY_SALARY_STATE,
   COMMISSION_SALARY_DLG_STATE,
+  DEPENDENT_SALARY_DLG_STATE,
   ADD_COMMISSION_SALARY_STATE,
   SET_COMMISSION_SALARY_STATE,
   SET_INDEX_DATA_DLG,
@@ -76,6 +77,9 @@ const actions = {
   },
   setCommissionSalaryDlg({ commit }, commissionSalaryDlgState) {
     commit(COMMISSION_SALARY_DLG_STATE, commissionSalaryDlgState);
+  },
+  setDependentSalaryDlg({ commit }, dependentSalaryDlgState) {
+    commit(DEPENDENT_SALARY_DLG_STATE, dependentSalaryDlgState);
   },
 
   // dialog submit data action
@@ -143,8 +147,12 @@ const actions = {
   setBrutoSalaryValue({ commit }) {
     commit(SET_BRUTO_SALARY_VALUE);
   },
-  setNettoSalaryValue({ commit }, nettoSalaryValue) {
-    commit(SET_NETTO_SALARY_VALUE, nettoSalaryValue);
+  setDependentsSalaryValue({ commit }, dependentSalaryValue) {
+    commit(SET_DEPENDENT_SALARY_VALUE, dependentSalaryValue);
+    commit(SET_NETTO_SALARY_VALUE);
+  },
+  setNettoSalaryValue({ commit }) {
+    commit(SET_NETTO_SALARY_VALUE);
   },
 
   // Set Unsed Data Object for Populating Data to Dialog
