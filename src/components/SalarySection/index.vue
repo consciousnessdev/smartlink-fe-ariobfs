@@ -1,49 +1,18 @@
 <template>
   <section class="section py-0 px-0 salary__section bottom--tickborder">
     <div class="py-4 px-4 salary__list">
-      <div class="has-text-weight-bold py-4 salarylist__header">{{title}}</div>
+      <div class="has-text-weight-bold py-4 salarylist__header">
+        {{ title }}
+      </div>
       <div class="salarylist__item">
         <row
-          label="Gaji Pokok"
-          totalUnit="1"
-          unit="periode"
-          value="8000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Makan"
-          totalUnit="22"
-          unit="kehadiran"
-          value="10000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Absen"
-          totalUnit="22"
-          unit="kehadiran"
-          value="12000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Transport"
-          totalUnit="22"
-          unit="kehadiran"
-          value="15000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Snack"
-          totalUnit="22"
-          unit="kehadiran"
-          value="5000"
+          v-for="salary in dataSalary"
+          :key="salary.id"
+          :idSalary="salary.id"
+          :label="salary.nama"
+          :totalUnit="setMultiplierType(salary.jenis)"
+          :unit="salary.jenis"
+          :value="salary.nominal"
           :multiplier="true"
           :showIcon="section === 'main'"
           iconType="edit"
@@ -57,7 +26,7 @@
           Subtotal {{ subtotalLabel }}
         </div>
         <div class="column has-text-weight-bold has-text-right">
-          Rp {{ '2.524.000' }}
+          Rp {{ subTotalGaji }}
         </div>
       </div>
     </div>
@@ -65,7 +34,9 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex';
 import Row from '../Lists/Row';
+import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
   name: 'SalarySection',
   components: {
@@ -84,7 +55,47 @@ export default {
       type: String,
       required: true,
     },
+    dataSalary: {
+      type: Array,
+      required: true,
+      default: [],
+    },
   },
+  computed: {
+    ...mapGetters('salaryinvoiceStore', ['getPeriod', 'getPresenceDay']),
+    subTotalGaji() {
+      if(this.dataSalary.length > 0) {
+        let subTotalVal = this.dataSalary.reduce((total, item) => {
+          return total += item.jenis === 'periode' ? item.nominal * this.getPeriod : item.nominal * this.getPresenceDay
+        }, 0)
+        this.setMainSalaryValue(subTotalVal);
+        return kursRupiahUtil(subTotalVal, '');
+      }
+      return 0;
+    },
+  },
+  methods: {
+    ...mapActions('salaryinvoiceStore', ['setMainSalaryValue']),
+    setMultiplierType(currentType) {
+      if (currentType === 'periode') {
+        return this.getPeriod;
+      }
+      return this.getPresenceDay;
+    },
+  },
+  watch: {
+    subTotalGaji() {
+      // console.log(newVal);
+      // if(this.getSalaryBrutoValue !== 0) {
+      //   if(this.getSalaryBrutoValue >= oldVal) {
+      //     const newSalaryValue = (this.getSalaryBrutoValue - oldVal) + newVal;
+      //     this.setBrutoSalaryValue(newSalaryValue);  
+      //   }
+      // }else{
+      //   this.setBrutoSalaryValue(newVal);
+      // }
+    }
+  }
 };
 </script>
 

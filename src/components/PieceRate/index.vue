@@ -10,18 +10,13 @@
     <div class="py-4 px-4 piecerate__list">
       <div class="pieceratelist__item">
         <row
-          label="Mencuci"
-          totalUnit="100"
-          unit="KG"
-          value="20000"
-          :showIcon="section === 'main'"
-          iconType="disabled"
-        />
-        <row
-          label="Menyetrika"
-          totalUnit="50"
-          unit="KG"
-          value="80000"
+          v-for="(wageSetting, i) in dataWageSetting"
+          :key="wageSetting.id"
+          :idSalary="wageSetting.id"
+          :label="wageSetting.nama"
+          :totalUnit="dataWageProcessing[i].nominal"
+          :unit="dataWageProcessing[i].satuan"
+          :value="dataWageProcessing[i].nominal * wageSetting.nominal"
           :showIcon="section === 'main'"
           iconType="disabled"
         />
@@ -35,7 +30,7 @@
           Subtotal {{ subtotalLabel }}
         </div>
         <div class="column has-text-weight-bold has-text-right">
-          Rp {{ '100.000' }}
+          Rp {{ subTotalUpah }}
         </div>
       </div>
     </div>
@@ -43,7 +38,9 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Row from '../../components/Lists/Row';
+import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
   name: 'PieceRate',
   props: {
@@ -59,17 +56,57 @@ export default {
       type: String,
       required: true,
     },
+    dataWageSetting: {
+      type: Array,
+      required: true,
+      default: [],
+    },
+    dataWageProcessing: {
+      type: Array,
+      required: true,
+      default: [],
+    },
   },
   components: {
     Row,
+  },
+  data() {
+    return {};
+  },
+  computed: {
+    subTotalUpah() {
+      if (
+        this.dataWageSetting.length > 0 &&
+        this.dataWageProcessing.length > 0
+      ) {
+        let subTotalVal = this.dataWageSetting.reduce((total, item, i) => {
+          return (total += item.nominal * this.dataWageProcessing[i].nominal);
+        }, 0);
+        this.setPieceRateSalaryValue(subTotalVal);
+        return kursRupiahUtil(subTotalVal, '');
+      }
+      return 0;
+    },
+  },
+  methods: {
+    ...mapActions('salaryinvoiceStore', ['setPieceRateSalaryValue']),
+    multiplierVal(multi, value) {
+      return kursRupiahUtil(multi * value, '');
+    },
   },
 };
 </script>
 
 <style lang="scss">
-.nominal__value {
-  align-items: flex-start;
-  justify-content: flex-end;
+.pieceratelist__item {
+  .label__value {
+    padding-bottom: 0;
+  }
+  .nominal__value {
+    padding-bottom: 0;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
 }
 
 .action {

@@ -112,6 +112,10 @@ $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
+// Import Bulma and Buefy styles
+@import "~bulma";
+@import "~buefy/src/scss/buefy";
+
 // Start Import customize
 
 // Font
@@ -122,6 +126,10 @@ $body-family: 'Overpass', 'Helvetica', 'sans-serif';
 @import './mixins.scss';
 
 // Custom Classes
+.topbottom--tickborder {
+    @include border(top, 12px, solid, #F2F5F7);
+    @include border(bottom, 12px, solid, #F2F5F7);
+}
 .bottom--tickborder {
     @include border(bottom, 12px, solid, #F2F5F7);
 }
@@ -146,8 +154,12 @@ $body-family: 'Overpass', 'Helvetica', 'sans-serif';
     font-weight: 600;
 }
 
-// End Import customize
+.modal-card-head {
+  border-bottom: 1px solid #ededed !important;
+}
 
-// Import Bulma and Buefy styles
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
+.modal-close {
+  display: none !important;
+}
+
+// End Import customize
