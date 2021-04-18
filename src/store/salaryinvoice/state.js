@@ -18,6 +18,7 @@ const state = {
   secondarySalarySettingDlg: false,
   commissionDlg: false,
   dependentDlg: false,
+  dialogDataObj: {},
   
 };
 

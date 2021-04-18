@@ -41,6 +41,9 @@ const getters = {
     }
     return state.salaryEmployeeData['total_kehadiran'];
   },
+  getDialogDataObj: (state) => {
+    return state.dialogDataObj;
+  },
 
   getSalaryInvoiceStatus: (state) => {
     return state.salaryInvoiceStatus;
@@ -52,6 +55,9 @@ const getters = {
   // modal dialog getter
   getPresenceDlgState: (state) => {
     return state.presenceSettingDlg;
+  },
+  getPeriodeSalaryDlgState: (state) => {
+    return state.primarySalarySettingDlg;
   }
 };
 

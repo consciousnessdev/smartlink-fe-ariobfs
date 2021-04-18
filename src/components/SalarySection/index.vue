@@ -8,6 +8,7 @@
         <row
           v-for="salary in dataSalary"
           :key="salary.id"
+          :idSalary="salary.id"
           :label="salary.nama"
           :totalUnit="setMultiplierType(salary.jenis)"
           :unit="salary.jenis"
@@ -16,42 +17,6 @@
           :showIcon="section === 'main'"
           iconType="edit"
         />
-        <!-- <row
-          label="Uang Makan"
-          totalUnit="22"
-          unit="kehadiran"
-          value="10000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Absen"
-          totalUnit="22"
-          unit="kehadiran"
-          value="12000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Transport"
-          totalUnit="22"
-          unit="kehadiran"
-          value="15000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        />
-        <row
-          label="Uang Snack"
-          totalUnit="22"
-          unit="kehadiran"
-          value="5000"
-          :multiplier="true"
-          :showIcon="section === 'main'"
-          iconType="edit"
-        /> -->
       </div>
     </div>
     <div class="pt-0 pb-4 px-4 salary__subtotal">

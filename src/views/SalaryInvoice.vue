@@ -7,6 +7,7 @@
       />
     </div>
     <div v-else class="salary__invoice-wrapper">
+      <!-- START Header : Information about name, periode & also presence day setting  -->
       <header-apps>
         <title-header> Faktur Gaji </title-header>
         <content-header>
@@ -34,7 +35,7 @@
               <b-button
                 type="is-text"
                 class="has-text-primary py-0 px-0 presenceday__dlgbutton"
-                @click="showDialog('presence_day')"
+                @click="setPresenceDlg(true)"
               >
                 Ubah Kehadiran
               </b-button>
@@ -42,13 +43,17 @@
           </div>
         </summary-header>
       </header-apps>
+      <!-- END Header : Information about name, periode & also presence day setting  -->
+
+      <!-- START Salary List : Information about salary & each setting  -->
       <salary-section
         section="main"
         title="Gaji"
         :dataSalary="getSalaryMainSettingData"
         subtotalLabel="Gaji"
       />
-      <piece-rate
+      <!-- START Salary List : Information about salary & each setting  -->
+      <!-- <piece-rate
         section="main"
         title="Upah Borongan"
         :dataWageSetting="getSalaryWageSettingData"
@@ -68,10 +73,10 @@
         :dataDependent="getSalaryDependentsData"
         dependentTotalLabel="Tanggungan Dibayar"
       />
-      <netto-salary-section :value="getSalaryNettoValue" />
+      <netto-salary-section :value="getSalaryNettoValue" /> -->
     </div>
     <!-- modal component -->
-    <modal-setting :type="dialogType" />
+    <modal-setting />
     <!-- modal component -->
   </div>
 </template>
@@ -111,7 +116,6 @@ export default {
   },
   data() {
     return {
-      dialogType: ''
     };
   },
   computed: {
@@ -137,12 +141,6 @@ export default {
         return '-';
       }
       return this[key][prop];
-    },
-    showDialog(type) {
-      this.dialogType = type;
-      if(type === 'presence_day') {
-        this.setPresenceDlg(true);
-      }
     },
   },
   mounted() {

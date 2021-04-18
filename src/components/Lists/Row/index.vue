@@ -12,7 +12,7 @@
         <div class="labelvalue__content has-text-semifade">
           {{
             multiplier
-              ? `${parseNominal('', value,'')} x ${totalUnit} ${unit}`
+              ? `${parseNominal('', value, '')} x ${totalUnit} ${unit}`
               : `${totalUnit}${unit}`
           }}
         </div>
@@ -52,9 +52,15 @@
       </div>
     </template>
     <div class="column is-flex is-auto action" v-if="showIcon">
-      <icon-components v-if="iconType === 'edit'" icon-name="edit-icon"
-        ><edit-icon :icon-stroke="iconColor"
-      /></icon-components>
+      <a
+        v-if="iconType === 'edit'"
+        class="button is-text px-0 py-0 salaryedit__icon"
+        @click="showDialogBySalaryUnit(unit, idSalary)"
+      >
+        <icon-components icon-name="edit-icon">
+          <edit-icon :icon-stroke="iconColor" />
+        </icon-components>
+      </a>
       <icon-components
         v-else-if="iconType === 'disabled'"
         icon-name="disabled-icon"
@@ -69,6 +75,7 @@ import IconComponents from '../../IconComponents';
 import EditIcon from '../../IconComponents/EditIcon';
 import DisabledIcon from '../../IconComponents/DisabledIcon';
 import kursRupiahUtil from '../../../utils/kursRupiahUtil';
+import { mapActions } from 'vuex';
 export default {
   name: 'RowListItem',
   components: {
@@ -77,6 +84,11 @@ export default {
     DisabledIcon,
   },
   props: {
+    idSalary: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     label: {
       type: String,
       required: false,
@@ -141,6 +153,7 @@ export default {
     },
   },
   methods: {
+    ...mapActions('salaryinvoiceStore', ['setPeriodeSalaryDlg', 'setIndexData']),
     textColorSetter(colorStr) {
       if (this.colorTable.indexOf(colorStr) !== -1) {
         return `has-text-${colorStr}`;
@@ -154,6 +167,21 @@ export default {
         return `(-) ${kursRupiahUtil(value, cur)}`;
       }
       return kursRupiahUtil(value, '');
+    },
+    showDialogBySalaryUnit(unitType, index) {
+      switch (unitType) {
+        case 'periode':
+          this.setIndexData({
+            keyData:'salaryMainSettingData',
+            indexData: index
+          });
+          this.setPeriodeSalaryDlg(true);
+          break;
+        case 'kehadiran':
+          break;
+        default:
+          return;
+      }
     },
   },
 };
@@ -169,5 +197,8 @@ export default {
       font-size: 12px;
     }
   }
+}
+.salaryedit__icon {
+  height: auto;
 }
 </style>

@@ -104,4 +104,11 @@ export default {
     border-bottom-right-radius: 0;
   }
 }
+.control__presence {
+  p.control {
+    button.button {
+      color: #206CFF !important
+    }
+  }
+}
 </style>
