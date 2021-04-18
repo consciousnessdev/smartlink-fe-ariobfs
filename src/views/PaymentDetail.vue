@@ -2,15 +2,13 @@
   <div class="payment__detail">
     <div class="payment__detail-wrapper">
       <header-apps section="main">
-        <title-header :backArrow="true">
-          Detail Pembayaran
-        </title-header>
+        <title-header :backArrow="true" path="/"> Detail Pembayaran </title-header>
         <content-header>
-          <row label="Subtotal Gaji" value="2.524.000" />
-          <row label="Subtotal Upah" value="100.000" />
-          <row label="Subtotal Komisi" value="200.000" />
-          <row label="Gaji Kotor" value="2.824.000" valueColor="secondary" />
-          <row label="Tanggungan" value="70.000" valueColor="fatal" />
+          <row :idSalary="parseRandomNum" page="paymentdetail" label="Subtotal Gaji" :value="getSalaryMainValue" />
+          <row :idSalary="parseRandomNum" page="paymentdetail" label="Subtotal Upah" :value="getSalaryPieceRateValue" />
+          <row :idSalary="parseRandomNum" page="paymentdetail" label="Subtotal Komisi" :value="getSalaryCommissionValue" />
+          <row :idSalary="parseRandomNum" page="paymentdetail" label="Gaji Kotor" :value="getSalaryBrutoValue" valueColor="secondary" />
+          <row :idSalary="parseRandomNum" page="paymentdetail" label="Tanggungan" :value="getSalaryDependentsValue" valueColor="fatal" />
         </content-header>
         <summary-header class="py-5">
           <div class="salarytotal__header-wrapper columns">
@@ -22,7 +20,7 @@
             <div
               class="column py-0 is-flex is-justify-content-flex-end salarytotal__setting has-text-primary has-text-weight-bold is-size-6"
             >
-              Rp 2.124.000
+              {{ parseNominal(getSalaryNettoValue) }}
             </div>
           </div>
         </summary-header>
@@ -72,7 +70,10 @@
             </div>
             <div class="fieldinfo__input">
               <b-field>
-                <b-input v-model="salaryInfo" placeholder="Tambah Keterangan"></b-input>
+                <b-input
+                  v-model="salaryInfo"
+                  placeholder="Tambah Keterangan"
+                ></b-input>
               </b-field>
             </div>
           </div>
@@ -86,11 +87,13 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import HeaderApps from '@/components/HeaderApps';
 import TitleHeader from '@/components/HeaderApps/TitleHeader';
 import ContentHeader from '@/components/HeaderApps/ContentHeader';
 import SummaryHeader from '@/components/HeaderApps/SummaryHeader';
 import Row from '@/components/Lists/Row';
+import kursRupiahUtil from '../utils/kursRupiahUtil';
 export default {
   name: 'PaymentDetail',
   components: {
@@ -100,13 +103,35 @@ export default {
     SummaryHeader,
     Row,
   },
+  computed: {
+    ...mapGetters('salaryinvoiceStore', [
+      'getSalaryMainValue',
+      'getSalaryCommissionValue',
+      'getSalaryPieceRateValue',
+      'getSalaryBrutoValue',
+      'getSalaryDependentsValue',
+      'getSalaryNettoValue'
+    ]),
+    parseRandomNum() {
+      return Number(Math.random().toFixed());
+    },
+    setBankList() {
+
+    }
+  },
   data() {
     return {
-      salaryInfo: ''
+      salaryBank: '',
+      salaryDate: '',
+      salaryInfo: '',
+    };
+  },
+  methods: {
+    parseNominal(val) {
+      return kursRupiahUtil(val, 'Rp ');
     }
   }
 };
 </script>
 
-<style lang="scss" scoped>
-</style>
+<style lang="scss" scoped></style>

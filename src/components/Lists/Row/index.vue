@@ -9,7 +9,10 @@
         >
           {{ label }}
         </div>
-        <div v-if="unit !== 'commission' || unit !== 'commission'" class="labelvalue__content has-text-semifade">
+        <div
+          v-if="unit !== 'commission' || unit !== 'commission'"
+          class="labelvalue__content has-text-semifade"
+        >
           {{
             multiplier
               ? `${parseNominal('', value, '')} x ${totalUnit} ${unit}`
@@ -37,9 +40,10 @@
         ]"
         v-if="!multiplier"
       >
-        <span :class="valueColor ? textColorSetter(valueColor) : ''">{{
-          parseNominal('', value, '')
-        }}</span>
+        <span :class="valueColor ? textColorSetter(valueColor) : ''">
+          {{ page === 'paymentdetail' ? 'Rp ' : '' }}
+          {{ parseNominal('', value, '') }}
+        </span>
       </div>
       <div
         class="column is-flex nominal__value"
@@ -51,7 +55,10 @@
         {{ parseNominal('', getSummaryUnitCalc, '') }}
       </div>
     </template>
-    <div class="column is-flex is-auto action is-align-items-center" v-if="showIcon">
+    <div
+      class="column is-flex is-auto action is-align-items-center"
+      v-if="showIcon"
+    >
       <a
         v-if="iconType === 'edit'"
         class="button is-text px-0 py-0 salaryedit__icon"
@@ -114,6 +121,11 @@ export default {
       default: '',
     },
     valueColor: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    page: {
       type: String,
       required: false,
       default: '',
@@ -192,8 +204,8 @@ export default {
           const commissionUnitObj = {
             dialog_type: 'edit',
             keyData: 'salaryCommissionData',
-            indexData: index
-          }
+            indexData: index,
+          };
           this.setIndexData(commissionUnitObj);
           this.setCommissionSalaryDlg(true);
           break;

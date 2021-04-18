@@ -4,9 +4,14 @@
   >
     <div v-if="backArrow===true" class="columns">
       <div class="column is-3 has-text-left">
+      <a
+        class="button is-text px-0 py-0 paymentdetail__back"
+        @click="navBack"
+      >
         <icon-components icon-name="leftarrow-icon"
           ><left-arrow />
         </icon-components>
+      </a>
       </div>
       <div class="column has-text-left">
         <slot> </slot>
@@ -29,12 +34,27 @@ export default {
       required: false,
       default: false,
     },
+    path: {
+      type: String,
+      required: false,
+      default: '/'
+    }
   },
   components: {
     IconComponents,
     LeftArrow,
   },
+  methods: {
+    navBack() {
+      const {path} = this;
+      this.$router.push({path});
+    }
+  }
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+.paymentdetail__back {
+  height: auto;
+}
+</style>
