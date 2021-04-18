@@ -51,7 +51,7 @@
         {{ parseNominal('', getSummaryUnitCalc, '') }}
       </div>
     </template>
-    <div class="column is-flex is-auto action" v-if="showIcon">
+    <div class="column is-flex is-auto action is-align-items-center" v-if="showIcon">
       <a
         v-if="iconType === 'edit'"
         class="button is-text px-0 py-0 salaryedit__icon"
