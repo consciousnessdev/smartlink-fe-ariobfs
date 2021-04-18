@@ -1,5 +1,5 @@
 <template>
-  <div class="row columns is-variable is-2">
+  <div class="row columns mb-0 is-variable is-2">
     <!-- left side -->
     <template>
       <div class="column is-7 label__value" v-if="sublabel === ''">

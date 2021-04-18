@@ -53,14 +53,18 @@
         subtotalLabel="Gaji"
       />
       <!-- END Salary List : Information about salary & each setting  -->
-      <!-- <piece-rate
+
+      <!-- START Piece Rate List : Information about piece rate & add/edit dialog  -->
+      <piece-rate
         section="main"
         title="Upah Borongan"
         :dataWageSetting="getSalaryWageSettingData"
         :dataWageProcessing="getSalaryWageProcessingSettingData"
         subtotalLabel="Upah"
       />
-      <commission-section
+      <!-- END Piece Rate List : Information about piece rate & add/edit dialog  -->
+
+      <!-- <commission-section
         section="main"
         title="Komisi"
         subtotalLabel="Komisi"
