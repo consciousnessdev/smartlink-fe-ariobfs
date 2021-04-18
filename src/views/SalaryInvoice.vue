@@ -72,8 +72,11 @@
       />
       <!-- END Commission Section : Information about commission list & add/edit dialog  -->
 
-      <!-- <bruto-salary-section :value="getSalaryBrutoValue" />
-
+      <!-- START Bruto Salary Section : Information about bruto salary  -->
+      <bruto-salary-section :value="getSalaryBrutoValue" />
+      <!-- END Bruto Salary Section : Information about bruto salary  -->
+      
+      <!-- 
       <dependent-section
         section="main"
         title="Tanggungan"
@@ -134,8 +137,11 @@ export default {
       'getSalaryWageSettingData',
       'getSalaryWageProcessingSettingData',
       'getSalaryCommissionData',
-      'getSalaryBrutoValue',
       'getSalaryDependentsData',
+      'getSalaryMainValue',
+      'getSalaryCommissionValue',
+      'getSalaryPieceRateValue',
+      'getSalaryBrutoValue',
       'getSalaryNettoValue',
       'getSalaryInvoiceStatus',
       'getSalaryInvoiceMessage',

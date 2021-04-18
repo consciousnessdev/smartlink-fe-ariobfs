@@ -5,12 +5,17 @@ const state = {
   salaryMainSettingData: [],
   salaryWageSettingData: [],
   salaryWageProcessingSettingData: [],
-  salaryCommissionData:[],
-  salaryDependentsData:[],
+  salaryCommissionData: [],
+  salaryDependentsData: [],
+
+  salaryMainValue: 0,
+  salaryPieceRateValue: 0,
+  salaryCommission: 0,
   salaryBrutoValue: 0,
+  salaryDependentValue: 0,
   salaryNettoValue: 0,
   salaryInvoiceStatus: 0,
-  salaryInvoiceMessage:'',
+  salaryInvoiceMessage: '',
 
   // modal state
   presenceSettingDlg: false,
@@ -19,7 +24,6 @@ const state = {
   commissionDlg: false,
   dependentDlg: false,
   dialogDataObj: {},
-  
 };
 
 export default state;

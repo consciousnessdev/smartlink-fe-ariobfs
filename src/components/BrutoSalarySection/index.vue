@@ -10,6 +10,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
   name: 'BrutoSalarySection',
@@ -18,6 +19,8 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  mounted(){
   },
   methods: {
     parseNominal(val) {

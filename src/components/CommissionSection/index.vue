@@ -92,13 +92,14 @@ export default {
         let subTotalVal = this.getSalaryCommissionData.reduce((total, item) => {
           return (total += item.nominal);
         }, 0);
+        this.setCommissionSalaryValue(subTotalVal);
         return kursRupiahUtil(subTotalVal, '');
       }
       return 0;
     },
   },
   methods: {
-    ...mapActions('salaryinvoiceStore', ['setCommissionSalaryDlg']),
+    ...mapActions('salaryinvoiceStore', ['setCommissionSalaryDlg', 'setCommissionSalaryValue']),
     showDialogCommission() {
       this.setCommissionSalaryDlg(true);
     },

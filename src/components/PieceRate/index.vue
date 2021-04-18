@@ -38,6 +38,7 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex';
 import Row from '../../components/Lists/Row';
 import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
@@ -81,12 +82,14 @@ export default {
         let subTotalVal = this.dataWageSetting.reduce((total, item, i) => {
           return (total += item.nominal * this.dataWageProcessing[i].nominal);
         }, 0);
+        this.setPieceRateSalaryValue(subTotalVal);
         return kursRupiahUtil(subTotalVal, '');
       }
       return 0;
     },
   },
   methods: {
+    ...mapActions('salaryinvoiceStore', ['setPieceRateSalaryValue']),
     multiplierVal(multi, value) {
       return kursRupiahUtil(multi * value, '');
     },

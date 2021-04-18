@@ -18,6 +18,13 @@ export const SET_PRIMARY_SALARY_STATE = 'SET_PRIMARY_SALARY_STATE';
 export const SET_SECONDARY_SALARY_STATE = 'SET_SECONDARY_SALARY_STATE';
 export const SET_COMMISSION_SALARY_STATE = 'SET_COMMISSION_SALARY_STATE';
 
+// subtotal data mutation
+export const SET_MAIN_SALARY_VALUE = 'SET_MAIN_SALARY_VALUE';
+export const SET_PIECERATE_SALARY_VALUE = 'SET_PIECERATE_SALARY_VALUE';
+export const SET_COMMISSION_SALARY_VALUE = 'SET_COMMISSION_SALARY_VALUE';
+export const SET_BRUTO_SALARY_VALUE = 'SET_BRUTO_SALARY_VALUE';
+export const SET_NETTO_SALARY_VALUE = 'SET_NETTO_SALARY_VALUE';
+
 // index data mutation
 export const SET_INDEX_DATA_DLG = 'SET_INDEX_DATA_DLG';
 export const UNSET_INDEX_DATA_DLG = 'UNSET_INDEX_DATA_DLG';
@@ -142,13 +149,39 @@ export default {
   [SET_COMMISSION_SALARY_STATE](state, values) {
     const { index, nama, nominal } = values;
     let populateDataCommission = [...state.salaryCommissionData];
-    populateDataCommission[index] = Object.assign({}, {nama, nominal});
-    state.salaryCommissionData = populateDataCommission;
-
-    // let populateDataCommissionObj = Object.assign({}, {...state.salaryCommissionData[index], nama, nominal});
-    // state.salaryCommissionData[index] = populateDataCommissionObj;
-
-    // state.salaryCommissionData[index]["nama"] = nama;
-    // state.salaryCommissionData[index]["nominal"] = nominal;
-  }
+    populateDataCommission[index] = Object.assign({}, { nama, nominal });
+    state.salaryCommissionData = [...populateDataCommission];
+  },
+  [SET_MAIN_SALARY_VALUE](state, values) {
+    state.salaryMainValue = values;
+  },
+  [SET_PIECERATE_SALARY_VALUE](state, values) {
+    state.salaryPieceRateValue = values;
+  },
+  [SET_COMMISSION_SALARY_VALUE](state, values) {
+    state.salaryCommissionValue = values;
+  },
+  [SET_BRUTO_SALARY_VALUE](state, values) {
+    const sumBrutoSalaryIndicator =
+      state.salaryMainValue +
+      state.salaryPieceRateValue +
+      state.salaryCommissionValue;
+    if (values !== sumBrutoSalaryIndicator) {
+      state.salaryBrutoValue = sumBrutoSalaryIndicator;
+    } else {
+      state.salaryBrutoValue = values;
+    }
+  },
+  [SET_NETTO_SALARY_VALUE](state, values) {
+    const sumNettoSalaryIndicator =
+      state.salaryMainValue +
+      state.salaryPieceRateValue +
+      state.salaryCommissionValue -
+      state.salaryDependentValue;
+    if (values !== sumNettoSalaryIndicator) {
+      state.salaryNettoValue = sumNettoSalaryIndicator;
+    } else {
+      state.salaryNettoValue = values;
+    }
+  },
 };

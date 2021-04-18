@@ -34,7 +34,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 import Row from '../Lists/Row';
 import kursRupiahUtil from '../../utils/kursRupiahUtil';
 export default {
@@ -68,12 +68,14 @@ export default {
         let subTotalVal = this.dataSalary.reduce((total, item) => {
           return total += item.jenis === 'periode' ? item.nominal * this.getPeriod : item.nominal * this.getPresenceDay
         }, 0)
+        this.setMainSalaryValue(subTotalVal);
         return kursRupiahUtil(subTotalVal, '');
       }
       return 0;
     },
   },
   methods: {
+    ...mapActions('salaryinvoiceStore', ['setMainSalaryValue']),
     setMultiplierType(currentType) {
       if (currentType === 'periode') {
         return this.getPeriod;
@@ -81,6 +83,19 @@ export default {
       return this.getPresenceDay;
     },
   },
+  watch: {
+    subTotalGaji() {
+      // console.log(newVal);
+      // if(this.getSalaryBrutoValue !== 0) {
+      //   if(this.getSalaryBrutoValue >= oldVal) {
+      //     const newSalaryValue = (this.getSalaryBrutoValue - oldVal) + newVal;
+      //     this.setBrutoSalaryValue(newSalaryValue);  
+      //   }
+      // }else{
+      //   this.setBrutoSalaryValue(newVal);
+      // }
+    }
+  }
 };
 </script>
 

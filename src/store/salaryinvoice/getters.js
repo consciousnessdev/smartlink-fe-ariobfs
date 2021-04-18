@@ -21,11 +21,20 @@ const getters = {
   getSalaryCommissionData: (state) => {
     return state.salaryCommissionData;
   },
-  getSalaryBrutoValue: (state) => {
-    return state.salaryBrutoValue;
-  },
   getSalaryDependentsData: (state) => {
     return state.salaryDependentsData;
+  },
+  getSalaryMainValue: (state) => {
+    return state.salaryMainValue;
+  },
+  getSalaryCommissionValue: (state) => {
+    return state.salaryCommissionValue;
+  },
+  getSalaryPieceRateValue: (state) => {
+    return state.salaryPieceRateValue;
+  },
+  getSalaryBrutoValue: (state) => {
+    return state.salaryBrutoValue;
   },
   getSalaryNettoValue: (state) => {
     return state.salaryNettoValue;

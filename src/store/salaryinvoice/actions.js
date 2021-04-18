@@ -11,10 +11,15 @@ import {
   SECONDARY_SALARY_DLG_STATE,
   SET_SECONDARY_SALARY_STATE,
   COMMISSION_SALARY_DLG_STATE,
+  ADD_COMMISSION_SALARY_STATE,
   SET_COMMISSION_SALARY_STATE,
   SET_INDEX_DATA_DLG,
   UNSET_INDEX_DATA_DLG,
-  ADD_COMMISSION_SALARY_STATE,
+  SET_MAIN_SALARY_VALUE,
+  SET_PIECERATE_SALARY_VALUE,
+  SET_COMMISSION_SALARY_VALUE,
+  SET_BRUTO_SALARY_VALUE,
+  SET_NETTO_SALARY_VALUE,
 } from './mutations';
 
 import apiRequestUtil from '../../utils/apiRequest';
@@ -122,6 +127,27 @@ const actions = {
     });
   },
 
+  // Calculate Subtotal Action
+  setMainSalaryValue({ commit }, mainSalaryValue) {
+    commit(SET_MAIN_SALARY_VALUE, mainSalaryValue);
+    commit(SET_BRUTO_SALARY_VALUE);
+  },
+  setPieceRateSalaryValue({ commit }, pieceRateSalaryValue) {
+    commit(SET_PIECERATE_SALARY_VALUE, pieceRateSalaryValue);
+    commit(SET_BRUTO_SALARY_VALUE);
+  },
+  setCommissionSalaryValue({ commit }, commissionSalaryValue) {
+    commit(SET_COMMISSION_SALARY_VALUE, commissionSalaryValue);
+    commit(SET_BRUTO_SALARY_VALUE);
+  },
+  setBrutoSalaryValue({ commit }) {
+    commit(SET_BRUTO_SALARY_VALUE);
+  },
+  setNettoSalaryValue({ commit }, nettoSalaryValue) {
+    commit(SET_NETTO_SALARY_VALUE, nettoSalaryValue);
+  },
+
+  // Set Unsed Data Object for Populating Data to Dialog
   setIndexData({ commit }, commissionItemObj) {
     commit(SET_INDEX_DATA_DLG, commissionItemObj);
   },
