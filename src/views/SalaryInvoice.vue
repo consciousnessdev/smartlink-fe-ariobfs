@@ -54,7 +54,7 @@
       />
       <!-- END Salary List : Information about salary & each setting  -->
 
-      <!-- START Piece Rate List : Information about piece rate & add/edit dialog  -->
+      <!-- START Piece Rate List : Information about piece rate & ? dialog  -->
       <piece-rate
         section="main"
         title="Upah Borongan"
@@ -62,14 +62,17 @@
         :dataWageProcessing="getSalaryWageProcessingSettingData"
         subtotalLabel="Upah"
       />
-      <!-- END Piece Rate List : Information about piece rate & add/edit dialog  -->
+      <!-- END Piece Rate List : Information about piece rate & ? dialog  -->
 
-      <!-- <commission-section
+      <!-- START Commission Section : Information about commission list & add/edit dialog  -->
+      <commission-section
         section="main"
         title="Komisi"
         subtotalLabel="Komisi"
       />
-      <bruto-salary-section :value="getSalaryBrutoValue" />
+      <!-- END Commission Section : Information about commission list & add/edit dialog  -->
+
+      <!-- <bruto-salary-section :value="getSalaryBrutoValue" />
 
       <dependent-section
         section="main"

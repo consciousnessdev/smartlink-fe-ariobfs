@@ -10,8 +10,11 @@ import {
   SET_PRIMARY_SALARY_STATE,
   SECONDARY_SALARY_DLG_STATE,
   SET_SECONDARY_SALARY_STATE,
+  COMMISSION_SALARY_DLG_STATE,
+  SET_COMMISSION_SALARY_STATE,
   SET_INDEX_DATA_DLG,
   UNSET_INDEX_DATA_DLG,
+  ADD_COMMISSION_SALARY_STATE,
 } from './mutations';
 
 import apiRequestUtil from '../../utils/apiRequest';
@@ -66,6 +69,9 @@ const actions = {
   setSecondarySalaryDlg({ commit }, secondarySalaryDlgState) {
     commit(SECONDARY_SALARY_DLG_STATE, secondarySalaryDlgState);
   },
+  setCommissionSalaryDlg({ commit }, commissionSalaryDlgState) {
+    commit(COMMISSION_SALARY_DLG_STATE, commissionSalaryDlgState);
+  },
 
   // dialog submit data action
   setPresenceDayCount({ commit }, presenceDayVal) {
@@ -97,9 +103,27 @@ const actions = {
       throw Error(error);
     });
   },
+  addCommissionSalaryItem({ commit }, commissionItemObj) {
+    commit(ADD_COMMISSION_SALARY_STATE, commissionItemObj);
+    return new Promise((resolve, reject) => {
+      commit(COMMISSION_SALARY_DLG_STATE, false);
+      resolve();
+    }).catch((error) => {
+      throw Error(error);
+    });
+  },
+  setCommissionSalaryItem({ commit }, commissionSalaryVal) {
+    commit(SET_COMMISSION_SALARY_STATE, commissionSalaryVal);
+    return new Promise((resolve, reject) => {
+      commit(COMMISSION_SALARY_DLG_STATE, false);
+      resolve();
+    }).catch((error) => {
+      throw Error(error);
+    });
+  },
 
-  setIndexData({ commit }, { keyData, indexData }) {
-    commit(SET_INDEX_DATA_DLG, {keyData, indexData});
+  setIndexData({ commit }, commissionItemObj) {
+    commit(SET_INDEX_DATA_DLG, commissionItemObj);
   },
   unsetIndexData({ commit }) {
     commit(UNSET_INDEX_DATA_DLG, {});

@@ -9,10 +9,14 @@ export const SALARY_INVOICE_ERROR = 'SALARY_INVOICE_ERROR';
 export const PRESENCE_DLG_STATE = 'PRESENCE_DLG_STATE';
 export const PRIMARY_SALARY_DLG_STATE = 'PRIMARY_SALARY_DLG_STATE';
 export const SECONDARY_SALARY_DLG_STATE = 'SECONDARY_SALARY_DLG_STATE';
+export const COMMISSION_SALARY_DLG_STATE = 'COMMISSION_SALARY_DLG_STATE';
+
+export const ADD_COMMISSION_SALARY_STATE = 'ADD_COMMISSION_SALARY_STATE';
 
 export const SET_PRESENCE_DAY_STATE = 'SET_PRESENCE_DAY_STATE';
 export const SET_PRIMARY_SALARY_STATE = 'SET_PRIMARY_SALARY_STATE';
 export const SET_SECONDARY_SALARY_STATE = 'SET_SECONDARY_SALARY_STATE';
+export const SET_COMMISSION_SALARY_STATE = 'SET_COMMISSION_SALARY_STATE';
 
 // index data mutation
 export const SET_INDEX_DATA_DLG = 'SET_INDEX_DATA_DLG';
@@ -85,13 +89,34 @@ export default {
     state.commissionDlg = false;
     state.dependentDlg = false;
   },
+  [COMMISSION_SALARY_DLG_STATE](state, values) {
+    state.commissionDlg = values;
+    state.presenceSettingDlg = false;
+    state.primarySalarySettingDlg = false;
+    state.secondarySalarySettingDlg = false;
+    state.dependentDlg = false;
+  },
+  [ADD_COMMISSION_SALARY_STATE](state, values) {
+    let populateCommissionState = [...state.salaryCommissionData];
+    populateCommissionState.push(values);
+    state.salaryCommissionData = populateCommissionState;
+  },
 
   [SET_PRESENCE_DAY_STATE](state, values) {
     state.salaryEmployeeData['total_kehadiran'] = values;
   },
   [SET_INDEX_DATA_DLG](state, values) {
     const { keyData, indexData } = values;
-    const parseStateObj = state[keyData].find((item) => item.id === indexData);
+    const parseStateObj = Object.assign(
+      {},
+      values.dialog_type && values.dialog_type === 'edit'
+        ? {
+            ...state[keyData][indexData],
+            dialog_type: values.dialog_type,
+            indexData,
+          }
+        : state[keyData].find((item) => item.id === indexData)
+    );
     state.dialogDataObj = parseStateObj;
   },
   [UNSET_INDEX_DATA_DLG](state, values) {
@@ -114,4 +139,16 @@ export default {
       .indexOf(id);
     state.salaryMainSettingData[matchIdIndex]['nominal'] = Number(value);
   },
+  [SET_COMMISSION_SALARY_STATE](state, values) {
+    const { index, nama, nominal } = values;
+    let populateDataCommission = [...state.salaryCommissionData];
+    populateDataCommission[index] = Object.assign({}, {nama, nominal});
+    state.salaryCommissionData = populateDataCommission;
+
+    // let populateDataCommissionObj = Object.assign({}, {...state.salaryCommissionData[index], nama, nominal});
+    // state.salaryCommissionData[index] = populateDataCommissionObj;
+
+    // state.salaryCommissionData[index]["nama"] = nama;
+    // state.salaryCommissionData[index]["nominal"] = nominal;
+  }
 };

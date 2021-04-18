@@ -9,7 +9,7 @@
         >
           {{ label }}
         </div>
-        <div class="labelvalue__content has-text-semifade">
+        <div v-if="unit !== 'commission' || unit !== 'commission'" class="labelvalue__content has-text-semifade">
           {{
             multiplier
               ? `${parseNominal('', value, '')} x ${totalUnit} ${unit}`
@@ -156,6 +156,7 @@ export default {
     ...mapActions('salaryinvoiceStore', [
       'setPeriodeSalaryDlg',
       'setSecondarySalaryDlg',
+      'setCommissionSalaryDlg',
       'setIndexData',
     ]),
     textColorSetter(colorStr) {
@@ -185,6 +186,15 @@ export default {
         case 'kehadiran':
           this.setIndexData(salaryUnitObj);
           this.setSecondarySalaryDlg(true);
+          break;
+        case 'commission':
+          const commissionUnitObj = {
+            dialog_type: 'edit',
+            keyData: 'salaryCommissionData',
+            indexData: index
+          }
+          this.setIndexData(commissionUnitObj);
+          this.setCommissionSalaryDlg(true);
           break;
         default:
           return;

@@ -30,10 +30,7 @@
       aria-modal
     >
       <template #default="props">
-        <periode-salary-config
-          @close="props.close"
-        >
-        </periode-salary-config>
+        <periode-salary-config @close="props.close"> </periode-salary-config>
       </template>
     </b-modal>
     <!-- END Periode Salary dialog -->
@@ -50,13 +47,29 @@
       :can-cancel="['x']"
     >
       <template #default="props">
-        <secondary-salary-config
-          @close="props.close"
-        >
+        <secondary-salary-config @close="props.close">
         </secondary-salary-config>
       </template>
     </b-modal>
     <!-- END Secondary Salary dialog -->
+
+    <!-- START Commission Salary dialog -->
+    <b-modal
+      v-model="getCommissionSalaryDlgState"
+      has-modal-card
+      trap-focus
+      :destroy-on-hide="true"
+      aria-role="dialog"
+      aria-label="Seconday Salary Modal"
+      aria-modal
+      :can-cancel="['x']"
+    >
+      <template #default="props">
+        <commission-salary-config @close="props.close">
+        </commission-salary-config>
+      </template>
+    </b-modal>
+    <!-- START Commission Salary dialog -->
   </section>
 </template>
 
@@ -65,12 +78,14 @@ import { mapActions, mapGetters } from 'vuex';
 import PresenceDayConfig from './PresenceDayConfig';
 import PeriodeSalaryConfig from './PeriodeSalaryConfig';
 import SecondarySalaryConfig from './SecondarySalaryConfig';
+import CommissionSalaryConfig from './CommissionSalaryConfig';
 export default {
   name: 'Modal',
   components: {
     PresenceDayConfig,
     PeriodeSalaryConfig,
-    SecondarySalaryConfig
+    SecondarySalaryConfig,
+    CommissionSalaryConfig,
   },
   computed: {
     ...mapGetters('salaryinvoiceStore', ['getPresenceDay']),
@@ -84,7 +99,9 @@ export default {
     },
     getPeriodeSalaryDlgState: {
       get() {
-        return this.$store.getters['salaryinvoiceStore/getPeriodeSalaryDlgState'];
+        return this.$store.getters[
+          'salaryinvoiceStore/getPeriodeSalaryDlgState'
+        ];
       },
       set(value) {
         this.setPeriodeSalaryDlg(value);
@@ -92,28 +109,51 @@ export default {
     },
     getSecondarySalaryDlgState: {
       get() {
-        return this.$store.getters['salaryinvoiceStore/getSecondarySalaryDlgState'];
+        return this.$store.getters[
+          'salaryinvoiceStore/getSecondarySalaryDlgState'
+        ];
       },
       set(value) {
         this.setSecondarySalaryDlg(value);
       },
-    }
+    },
+    getCommissionSalaryDlgState: {
+      get() {
+        return this.$store.getters[
+          'salaryinvoiceStore/getCommissionSalaryDlgState'
+        ];
+      },
+      set(value) {
+        this.setCommissionSalaryDlg(value);
+      },
+    },
   },
   methods: {
-    ...mapActions('salaryinvoiceStore', ['setPresenceDlg', 'setPeriodeSalaryDlg', 'setSecondarySalaryDlg','unsetIndexData'])
+    ...mapActions('salaryinvoiceStore', [
+      'setPresenceDlg',
+      'setPeriodeSalaryDlg',
+      'setSecondarySalaryDlg',
+      'setCommissionSalaryDlg',
+      'unsetIndexData',
+    ]),
   },
   watch: {
     getPeriodeSalaryDlgState(newVal) {
-      if(newVal === false) {
+      if (newVal === false) {
         this.unsetIndexData();
       }
     },
     getSecondarySalaryDlgState(newVal) {
-      if(newVal === false) {
+      if (newVal === false) {
+        this.unsetIndexData();
+      }
+    },
+    getCommissionSalaryDlgState(newVal) {
+      if (newVal === false) {
         this.unsetIndexData();
       }
     }
-  }
+  },
 };
 </script>
 
