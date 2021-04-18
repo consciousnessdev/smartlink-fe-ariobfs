@@ -27,7 +27,7 @@
             </p>
             <b-input
               v-model="salaryNominal"
-              @input.native="handleNominal"
+              @keypress.native="handleNominal($event)"
             ></b-input>
           </b-field>
           <b-field class="column is-1 is-flex is-align-items-center">
@@ -57,7 +57,7 @@
           <b-field class="column">
             <b-input
               v-model="periodesalaryQty"
-              @input.native="handleNominal"
+              @keypress.native="handleNominal($event)"
             ></b-input>
             <p class="control">
               <span class="button is-static">Periode</span>
@@ -119,12 +119,17 @@ export default {
     // TODO: format currency on input
     formatCurrency(value) {
       return value;
-    }
+    },
   },
   methods: {
     ...mapActions('salaryinvoiceStore', ['setPeriodeSalaryCount']),
-    handleNominal(event) {
-      event.target.value = event.target.value.replace(/[^0-9]+/g, '');
+    handleNominal(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        evt.preventDefault();
+      }
+      return true;
     },
     submitSalaryPeriode() {
       const { id } = this.getDialogDataObj;

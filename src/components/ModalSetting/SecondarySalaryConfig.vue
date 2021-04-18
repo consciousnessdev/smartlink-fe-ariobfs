@@ -27,7 +27,7 @@
             </p>
             <b-input
               v-model="salaryNominal"
-              @input.native="handleNominal"
+              @keypress.native="handleNominal($event)"
             ></b-input>
           </b-field>
           <b-field class="column is-1 is-flex is-align-items-center">
@@ -55,7 +55,9 @@
             </svg>
           </b-field>
           <b-field class="column">
-            <p class="secondarysalary__presenceday">{{getPresenceDay}} Hari</p>
+            <p class="secondarysalary__presenceday">
+              {{ getPresenceDay }} Hari
+            </p>
           </b-field>
         </div>
         <div class="pb-1 fieldcalc__label pt-2 top--thindashborder">
@@ -115,8 +117,13 @@ export default {
   },
   methods: {
     ...mapActions('salaryinvoiceStore', ['setSecondarySalaryCount']),
-    handleNominal(event) {
-      event.target.value = event.target.value.replace(/[^0-9]+/g, '');
+    handleNominal(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        evt.preventDefault();
+      }
+      return true;
     },
     submitSecondaySalary() {
       const { id } = this.getDialogDataObj;

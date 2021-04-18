@@ -30,7 +30,7 @@
               min="1"
               v-model="presenceDayQty"
               placeholder="Hari"
-              @input.native="handleNominal"
+              @keypress.native="handleNominal($event)"
             ></b-numberinput>
           </b-field>
         </div>
@@ -75,8 +75,13 @@ export default {
   },
   methods: {
     ...mapActions('salaryinvoiceStore', ['setPresenceDayCount']),
-    handleNominal(event) {
-      event.target.value = event.target.value.replace(/[^0-9]+/g, '');
+    handleNominal(evt) {
+      evt = evt ? evt : window.event;
+      var charCode = evt.which ? evt.which : evt.keyCode;
+      if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+        evt.preventDefault();
+      }
+      return true;
     },
     submitPresence() {
       this.setPresenceDayCount(this.presenceDayQty);
@@ -107,7 +112,7 @@ export default {
 .control__presence {
   p.control {
     button.button {
-      color: #206CFF !important
+      color: #206cff !important;
     }
   }
 }
