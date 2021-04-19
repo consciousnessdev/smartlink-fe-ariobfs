@@ -5,11 +5,11 @@
     >
       {{ title }}
       <div
-        v-if="getSalaryDependentTotalValue > 0"
+        v-if="subTotalTanggungan > 0"
         class="subtitle has-text-semifade is-size-7"
       >
         {{
-          `Karyawan ini memiliki tanggungan Rp ${getSalaryDependentTotalValue}`
+          `Karyawan ini memiliki tanggungan Rp ${subTotalTanggungan}`
         }}
       </div>
     </div>
@@ -18,10 +18,10 @@
       v-if="section === 'main'"
       class="pt-4 pb-0 px-4 dependentsection__button"
     >
-      <div 
+      <div
         class="is-flex dependentsection__add"
-        :class="getSalaryDependentsData.length === 0 ? 'pb-4':''"
-        >
+        :class="getSalaryDependentsData.length === 0 ? 'pb-4' : ''"
+      >
         <a
           class="button is-text py-0 px-0 dependentsection__addbutton"
           @click="showDialogDependent"
@@ -39,7 +39,7 @@
         </a>
       </div>
     </div>
-    <div 
+    <div
       class="dependentsection__list"
       :class="getSalaryDependentsData.length > 0 ? 'pt-4 px-4' : ''"
     >
@@ -68,7 +68,7 @@
         <div
           class="column is-5 has-text-weight-bold has-text-right has-text-danger"
         >
-          (-) Rp {{ getSalaryDependentTotalValue }}
+          (-) Rp {{ subTotalTanggungan }}
         </div>
       </div>
     </div>
@@ -105,16 +105,39 @@ export default {
   },
   computed: {
     ...mapGetters('salaryinvoiceStore', ['getSalaryDependentsData']),
-    getSalaryDependentTotalValue() {
-      if (this.getSalaryDependentsData.length > 0) {
-        let subTotalVal = this.getSalaryDependentsData.reduce((total, item) => {
-          total += item.nominal;
-          return total;
-        }, 0);
-        this.setDependentsSalaryValue(subTotalVal);
-        return kursRupiahUtil(subTotalVal, '');
+    ...mapGetters('invoicedetailStore', ['getInvoiceDetailDependentsData']),
+    subTotalTanggungan() {
+      if (this.section === 'detail') {
+        if (this.getInvoiceDetailDependentsData.length > 0) {
+          let subTotalVal = this.getInvoiceDetailDependentsData.reduce(
+            (total, item) => {
+              total += item.nominal;
+              return total;
+            },
+            0
+          );
+          this.setInvoiceDetailDependentsValue(subTotalVal);
+          return kursRupiahUtil(subTotalVal, '');
+        } else {
+          this.setInvoiceDetailDependentsValue(0);
+          return 0;
+        }
+      } else {
+        if (this.getSalaryDependentsData.length > 0) {
+          let subTotalVal = this.getSalaryDependentsData.reduce(
+            (total, item) => {
+              total += item.nominal;
+              return total;
+            },
+            0
+          );
+          this.setDependentsSalaryValue(subTotalVal);
+          return kursRupiahUtil(subTotalVal, '');
+        } else {
+          this.setDependentsSalaryValue(0);
+          return 0;
+        }
       }
-      return 0;
     },
   },
   methods: {
@@ -122,6 +145,8 @@ export default {
       'setDependentSalaryDlg',
       'setDependentsSalaryValue',
     ]),
+    ...mapActions('invoicedetailStore', ['setInvoiceDetailDependentsValue']),
+
     showDialogDependent() {
       this.setDependentSalaryDlg(true);
     },

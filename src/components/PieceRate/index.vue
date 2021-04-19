@@ -16,7 +16,7 @@
           :label="wageSetting.nama"
           :totalUnit="dataWageProcessing[i].nominal"
           :unit="dataWageProcessing[i].satuan"
-          :value="dataWageProcessing[i].nominal * wageSetting.nominal"
+          :value="wageSetting.nominal * dataWageProcessing.find(item => item.pengaturan_upah_id === wageSetting.id).nominal"
           :showIcon="section === 'main'"
           iconType="disabled"
         />
@@ -80,16 +80,27 @@ export default {
         this.dataWageProcessing.length > 0
       ) {
         let subTotalVal = this.dataWageSetting.reduce((total, item, i) => {
-          return (total += item.nominal * this.dataWageProcessing[i].nominal);
+          return (total += item.nominal * this.dataWageProcessing.find(itemProc => itemProc.pengaturan_upah_id === item.id).nominal);
         }, 0);
-        this.setPieceRateSalaryValue(subTotalVal);
+        if(this.section === 'detail') {
+          this.setInvoiceDetailPieceRateValue(subTotalVal);
+        }else{
+          this.setPieceRateSalaryValue(subTotalVal);
+        }
         return kursRupiahUtil(subTotalVal, '');
+      }else{
+        if(this.section === 'detail') {
+          this.setInvoiceDetailPieceRateValue(0);
+        }else{
+          this.setPieceRateSalaryValue(0);
+        }
+        return 0;
       }
-      return 0;
     },
   },
   methods: {
     ...mapActions('salaryinvoiceStore', ['setPieceRateSalaryValue']),
+    ...mapActions('invoicedetailStore', ['setInvoiceDetailPieceRateValue']),
     multiplierVal(multi, value) {
       return kursRupiahUtil(multi * value, '');
     },
