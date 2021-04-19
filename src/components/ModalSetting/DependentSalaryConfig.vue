@@ -47,6 +47,7 @@
                 class="is-default dependentsalary__nominalfield-input"
                 v-model="dependentNominal"
                 @keypress.native="handleNominal($event)"
+                :disabled="getDialogDataObj['dialog_type'] && getDialogDataObj['dialog_type'] === 'edit'"
               ></b-input>
             </b-field>
           </div>
