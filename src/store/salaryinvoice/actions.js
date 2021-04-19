@@ -14,8 +14,10 @@ import {
   DEPENDENT_SALARY_DLG_STATE,
   ADD_COMMISSION_SALARY_STATE,
   SET_COMMISSION_SALARY_STATE,
+  DEL_COMMISSION_SALARY_STATE,
   ADD_DEPENDENT_SALARY_STATE,
   SET_DEPENDENT_SALARY_STATE,
+  DEL_DEPENDENT_SALARY_STATE,
   SET_INDEX_DATA_DLG,
   UNSET_INDEX_DATA_DLG,
   SET_MAIN_SALARY_VALUE,
@@ -133,6 +135,15 @@ const actions = {
       throw Error(error);
     });
   },
+  delCommissionSalaryItem({ commit }, indexCommissionSalaryItem) {
+    commit(DEL_COMMISSION_SALARY_STATE, indexCommissionSalaryItem);
+    return new Promise((resolve, reject) => {
+      commit(COMMISSION_SALARY_DLG_STATE, false);
+      resolve();
+    }).catch((error) => {
+      throw Error(error);
+    });
+  },
   addDependentSalaryItem({ commit }, dependentItemObj) {
     commit(ADD_DEPENDENT_SALARY_STATE, dependentItemObj);
     return new Promise((resolve, reject) => {
@@ -144,6 +155,15 @@ const actions = {
   },
   setDependentSalaryItem({ commit }, dependentSalaryVal) {
     commit(SET_DEPENDENT_SALARY_STATE, dependentSalaryVal);
+    return new Promise((resolve, reject) => {
+      commit(DEPENDENT_SALARY_DLG_STATE, false);
+      resolve();
+    }).catch((error) => {
+      throw Error(error);
+    });
+  },
+  delDependentSalaryItem({ commit }, indexDependentSalaryItem) {
+    commit(DEL_DEPENDENT_SALARY_STATE, indexDependentSalaryItem);
     return new Promise((resolve, reject) => {
       commit(DEPENDENT_SALARY_DLG_STATE, false);
       resolve();
