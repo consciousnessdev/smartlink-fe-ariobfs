@@ -68,14 +68,25 @@ export default {
         let subTotalVal = this.dataSalary.reduce((total, item) => {
           return total += item.jenis === 'periode' ? item.nominal * this.getPeriod : item.nominal * this.getPresenceDay
         }, 0)
-        this.setMainSalaryValue(subTotalVal);
+        if(this.section === 'detail') {
+          this.setInvoiceDetailMainValue(subTotalVal);
+        }else{
+          this.setMainSalaryValue(subTotalVal);
+        }
         return kursRupiahUtil(subTotalVal, '');
+      }else{
+        if(this.section === 'detail') {
+          this.setInvoiceDetailMainValue(0);
+        }else{
+          this.setMainSalaryValue(0);
+        }
+        return 0;
       }
-      return 0;
     },
   },
   methods: {
     ...mapActions('salaryinvoiceStore', ['setMainSalaryValue']),
+    ...mapActions('invoicedetailStore', ['setInvoiceDetailMainValue']),
     setMultiplierType(currentType) {
       if (currentType === 'periode') {
         return this.getPeriod;
@@ -83,19 +94,6 @@ export default {
       return this.getPresenceDay;
     },
   },
-  watch: {
-    subTotalGaji() {
-      // console.log(newVal);
-      // if(this.getSalaryBrutoValue !== 0) {
-      //   if(this.getSalaryBrutoValue >= oldVal) {
-      //     const newSalaryValue = (this.getSalaryBrutoValue - oldVal) + newVal;
-      //     this.setBrutoSalaryValue(newSalaryValue);  
-      //   }
-      // }else{
-      //   this.setBrutoSalaryValue(newVal);
-      // }
-    }
-  }
 };
 </script>
 

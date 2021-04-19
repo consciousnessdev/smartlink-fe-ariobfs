@@ -22,6 +22,10 @@
         pembayaran tanggungan (jika ada).
       </div>
     </div>
+    <div v-if="section === 'summary'" class="py-4 px-4 nettosalarysection__keterangan top--tickborder">
+      <div class="has-text-semifade is-size-7">Keterangan</div>
+      <div class="has-text-black">{{ getInvoiceDetailInfo }}</div>
+    </div>
     <div class="pb-4 pt-0 px-4 nettosalarysection__button">
       <b-button v-if="section === 'summary'" class="is-secondary" expanded
         >Cetak</b-button
@@ -37,6 +41,7 @@
 import IconComponents from '../IconComponents';
 import CheckFillIcon from '../IconComponents/CheckFillIcon';
 import kursRupiahUtil from '../../utils/kursRupiahUtil';
+import { mapGetters } from 'vuex';
 export default {
   name: 'NettoSalarySection',
   components: {
@@ -53,6 +58,9 @@ export default {
       type: Number,
       required: true,
     },
+  },
+  computed: {
+    ...mapGetters('invoicedetailStore', ['getInvoiceDetailInfo'])
   },
   methods: {
     parseNominal(val) {

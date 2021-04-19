@@ -36,6 +36,9 @@ const getters = {
   getSalaryBrutoValue: (state) => {
     return state.salaryBrutoValue;
   },
+  getSalaryDependentsValue: (state) => {
+    return state.salaryDependentValue;
+  },
   getSalaryNettoValue: (state) => {
     return state.salaryNettoValue;
   },

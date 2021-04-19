@@ -27,7 +27,7 @@
             <b-field>
               <b-input
                 v-model="dependentNama"
-                placeholder="Nama Komisi"
+                placeholder="Contoh: Ganti Barang Hilang"
               ></b-input>
             </b-field>
           </div>
@@ -78,7 +78,7 @@
           expanded
           type="is-danger"
           outlined
-          @click="clearDependentField"
+          @click="deleteDependent"
           :disabled="dependentNama === '' || dependentNominal === 0 || dependentInfo === ''"
         />
         <b-button
@@ -134,6 +134,7 @@ export default {
     ...mapActions('salaryinvoiceStore', [
       'addDependentSalaryItem',
       'setDependentSalaryItem',
+      'delDependentSalaryItem',
     ]),
     handleNominal(evt) {
       evt = evt ? evt : window.event;
@@ -143,10 +144,15 @@ export default {
       }
       return true;
     },
-    clearDependentField() {
-      this.dependentNama = '';
-      this.dependentNominal = 0;
-      this.dependentInfo = '';
+    deleteDependent() {
+      if(this.dependentDlgState === 'add') {
+        this.dependentNama = '';
+        this.dependentNominal = 0;
+        this.dependentInfo = '';
+      }else{
+        const { indexData: index } = this.getDialogDataObj;
+        this.delDependentSalaryItem(index);
+      }
     },
     submitDependentSalary() {
       const {

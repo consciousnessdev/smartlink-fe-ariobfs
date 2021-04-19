@@ -21,6 +21,9 @@ export const SET_SECONDARY_SALARY_STATE = 'SET_SECONDARY_SALARY_STATE';
 export const SET_COMMISSION_SALARY_STATE = 'SET_COMMISSION_SALARY_STATE';
 export const SET_DEPENDENT_SALARY_STATE = 'SET_DEPENDENT_SALARY_STATE';
 
+export const DEL_COMMISSION_SALARY_STATE = 'DEL_COMMISSION_SALARY_STATE';
+export const DEL_DEPENDENT_SALARY_STATE = 'DEL_DEPENDENT_SALARY_STATE';
+
 // subtotal data mutation
 export const SET_MAIN_SALARY_VALUE = 'SET_MAIN_SALARY_VALUE';
 export const SET_PIECERATE_SALARY_VALUE = 'SET_PIECERATE_SALARY_VALUE';
@@ -183,6 +186,18 @@ export default {
     );
     state.salaryDependentsData = [...populateDataDependent];
   },
+  [DEL_COMMISSION_SALARY_STATE](state, values) {
+    let populateDataCommissionArr = [...state.salaryCommissionData]
+    populateDataCommissionArr.splice(values, 1);
+    state.salaryCommissionData = populateDataCommissionArr
+  },
+
+  [DEL_DEPENDENT_SALARY_STATE](state, values) {
+    let populateDataDependentArr = [...state.salaryDependentsData];
+    populateDataDependentArr.splice(values, 1);
+  state.salaryDependentsData = populateDataDependentArr;
+  },
+
   [SET_MAIN_SALARY_VALUE](state, values) {
     state.salaryMainValue = values;
   },
