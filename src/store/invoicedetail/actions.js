@@ -26,26 +26,38 @@ const actions = {
   },
   setInvoiceDetailMainValue({ commit }, mainInvoiceDetailValue) {
     commit(SET_INVOICEDETAIL_MAIN_VALUE, mainInvoiceDetailValue);
-    commit(SET_INVOICEDETAIL_BRUTO_VALUE);
+    // commit(SET_INVOICEDETAIL_BRUTO_VALUE, {
+    //   key: 'main',
+    //   value: mainInvoiceDetailValue,
+    // });
   },
   setInvoiceDetailPieceRateValue({ commit }, pieceRateInvoiceDetailValue) {
     commit(SET_INVOICEDETAIL_PIECERATE_VALUE, pieceRateInvoiceDetailValue);
-    commit(SET_INVOICEDETAIL_BRUTO_VALUE);
+    // commit(SET_INVOICEDETAIL_BRUTO_VALUE, {
+    //   key: 'piecerate',
+    //   value: pieceRateInvoiceDetailValue,
+    // });
   },
   setInvoiceDetailCommissionValue({ commit }, commissionInvoiceDetailValue) {
     commit(SET_INVOICEDETAIL_COMMISSION_VALUE, commissionInvoiceDetailValue);
-    commit(SET_INVOICEDETAIL_BRUTO_VALUE);
+    // commit(SET_INVOICEDETAIL_BRUTO_VALUE, {
+    //   key: 'commission',
+    //   value: commissionInvoiceDetailValue,
+    // });
   },
-  setInvoiceDetailBrutoValue({ commit }) {
-    commit(SET_INVOICEDETAIL_BRUTO_VALUE);
-  },
+  // setInvoiceDetailBrutoValue({ commit }) {
+  //   commit(SET_INVOICEDETAIL_BRUTO_VALUE);
+  // },
   setInvoiceDetailDependentsValue({ commit }, dependentInvoiceDetailValue) {
     commit(SET_INVOICEDETAIL_DEPENDENT_VALUE, dependentInvoiceDetailValue);
-    commit(SET_INVOICEDETAIL_NETTO_VALUE);
+    // commit(SET_INVOICEDETAIL_NETTO_VALUE, {
+    //   key: 'dependent',
+    //   value: dependentInvoiceDetailValue,
+    // });
   },
-  setInvoiceDetailNettoValue({ commit }) {
-    commit(SET_INVOICEDETAIL_NETTO_VALUE);
-  },
+  // setInvoiceDetailNettoValue({ commit }) {
+  //   commit(SET_INVOICEDETAIL_NETTO_VALUE);
+  // },
 };
 
 export default actions;

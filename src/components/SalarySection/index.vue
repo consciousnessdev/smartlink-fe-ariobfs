@@ -94,19 +94,6 @@ export default {
       return this.getPresenceDay;
     },
   },
-  watch: {
-    subTotalGaji() {
-      // console.log(newVal);
-      // if(this.getSalaryBrutoValue !== 0) {
-      //   if(this.getSalaryBrutoValue >= oldVal) {
-      //     const newSalaryValue = (this.getSalaryBrutoValue - oldVal) + newVal;
-      //     this.setBrutoSalaryValue(newSalaryValue);  
-      //   }
-      // }else{
-      //   this.setBrutoSalaryValue(newVal);
-      // }
-    }
-  }
 };
 </script>
 

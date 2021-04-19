@@ -145,17 +145,12 @@ export default {
       'setDependentSalaryDlg',
       'setDependentsSalaryValue',
     ]),
-    ...mapActions('invoicedetailStore', ['setInvoiceDetailDependentsValue', 'setInvoiceDetailBrutoValue']),
+    ...mapActions('invoicedetailStore', ['setInvoiceDetailDependentsValue']),
 
     showDialogDependent() {
       this.setDependentSalaryDlg(true);
     },
   },
-  mounted() {
-    if(this.section === 'detail') {
-      this.setInvoiceDetailBrutoValue();
-    }
-  }
 };
 </script>
 

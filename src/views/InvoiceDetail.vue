@@ -112,7 +112,7 @@ export default {
       }
       return this[key][prop];
     },
-  }
+  },
 };
 </script>
 

@@ -53,6 +53,42 @@ export default {
     state.invoiceDetailWageProcessingSettingData = [...pengerjaan_upah];
     state.invoiceDetailCommissionData = [...komisi];
     state.invoiceDetailDependentsData = [...tanggungan];
+
+    const mainInvoiceDetailSalaryCalc = [...pengaturan_gaji].reduce((total, item) => {
+      return (total +=
+        item.jenis === 'periode'
+          ? item.nominal * total_periode
+          : item.nominal * total_kehadiran);
+    }, 0);
+
+    const piecerateInvoiceDetailSalaryCalc = [...pengerjaan_upah].reduce(
+      (total, itemProc) => {
+        return (total +=
+          pengaturan_upah.find(
+            (item) => item.id === itemProc.pengaturan_upah_id
+          ).nominal * itemProc.nominal);
+      },
+      0
+    );
+
+    const commissionInvoiceDetailSalaryCalc = [...komisi].reduce((total, item) => {
+      return total += item.nominal;
+    },0);
+
+    state.invoiceDetailBrutoValue =
+      mainInvoiceDetailSalaryCalc + piecerateInvoiceDetailSalaryCalc + commissionInvoiceDetailSalaryCalc;
+
+    const dependentInvoiceDetailSalaryCalc = [...tanggungan].reduce((total, item) => {
+      return total += item.nominal;
+    }, 0);
+
+    const nettoInvoiceDetailSalaryCalc =
+      mainInvoiceDetailSalaryCalc +
+      piecerateInvoiceDetailSalaryCalc +
+      commissionInvoiceDetailSalaryCalc -
+      dependentInvoiceDetailSalaryCalc;
+
+    state.invoiceDetailNettoValue = nettoInvoiceDetailSalaryCalc;
     state.invoiceDetailInfo = keterangan;
   },
   [SET_INVOICEDETAIL_MAIN_VALUE](state, values) {
@@ -65,6 +101,13 @@ export default {
     state.invoiceDetailCommission = values;
   },
   [SET_INVOICEDETAIL_BRUTO_VALUE](state) {
+    // console.log(values);
+    // const { key, value } = values;
+    // let mainVal = key === 'main' ? value : 0;
+    // let piecerateVal = key === 'piecerate' ? value : 0;
+    // let commissionVal = key === 'commission' ? value : 0;
+    // const sumBrutoInvoiceDetailIndicator =
+    //   mainVal + piecerateVal + commissionVal;
       const sumBrutoInvoiceDetailIndicator =
         state.invoiceDetailMainValue +
         state.invoiceDetailPieceRateValue +

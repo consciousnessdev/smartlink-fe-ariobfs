@@ -92,7 +92,7 @@ export default {
     ...mapGetters('salaryinvoiceStore', [
       'getSalaryCommissionData',
     ]),
-    ...mapGetters('invoicedetailStore', ['getInvoiceDetailCommissionData']),
+    ...mapGetters('invoicedetailStore', ['getInvoiceDetailCommissionData', 'getInvoiceDetailCommissionValue']),
     subTotalKomisi() {
       if (this.section === 'detail') {
         if (this.getInvoiceDetailCommissionData.length > 0) {
@@ -130,16 +130,11 @@ export default {
       'setCommissionSalaryDlg',
       'setCommissionSalaryValue',
     ]),
-    ...mapActions('invoicedetailStore', ['setInvoiceDetailCommissionValue','setInvoiceDetailBrutoValue']),
+    ...mapActions('invoicedetailStore', ['setInvoiceDetailCommissionValue']),
     showDialogCommission() {
       this.setCommissionSalaryDlg(true);
     },
   },
-  mounted() {
-    if(this.section === 'detail') {
-      this.setInvoiceDetailBrutoValue()
-    }
-  }
 };
 </script>
 
