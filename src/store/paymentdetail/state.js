@@ -1,8 +1,14 @@
 const state = {
+  fetchState: false,
+  isBankListLoading: true,
   bankListData: [],
-  paymentDetailBank: {},
-  paymentDetailDate: '',
-  paymentDetailInfo: '',
+  bankListStatus: false,
+  bankListMessage: '',
+
+  loadingSubmitPaymentDetail: false,
+  submitPaymentDetailData: null,
+  submitPaymentDetailStatus: false,
+  submitPaymentDetailMessage: '',
 };
 
 export default state;
