@@ -141,6 +141,9 @@ $body-family: 'Overpass', 'Helvetica', 'sans-serif';
 .bottom--thinborder {
     @include border(bottom, 2px, solid, #F2F5F7);
 }
+.top--tickborder {
+    @include border(top, 12px, solid, #F2F5F7);
+}
 
 .top--thindashborder {
     @include border(top, 2px, dashed, rgba(229, 229, 229, 0.5));

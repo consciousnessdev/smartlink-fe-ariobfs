@@ -82,14 +82,25 @@ export default {
         let subTotalVal = this.dataWageSetting.reduce((total, item, i) => {
           return (total += item.nominal * this.dataWageProcessing[i].nominal);
         }, 0);
-        this.setPieceRateSalaryValue(subTotalVal);
+        if(this.section === 'detail') {
+          this.setInvoiceDetailPieceRateValue(subTotalVal);
+        }else{
+          this.setPieceRateSalaryValue(subTotalVal);
+        }
         return kursRupiahUtil(subTotalVal, '');
+      }else{
+        if(this.section === 'detail') {
+          this.setInvoiceDetailPieceRateValue(0);
+        }else{
+          this.setPieceRateSalaryValue(0);
+        }
+        return 0;
       }
-      return 0;
     },
   },
   methods: {
     ...mapActions('salaryinvoiceStore', ['setPieceRateSalaryValue']),
+    ...mapActions('invoicedetailStore', ['setInvoiceDetailPieceRateValue']),
     multiplierVal(multi, value) {
       return kursRupiahUtil(multi * value, '');
     },

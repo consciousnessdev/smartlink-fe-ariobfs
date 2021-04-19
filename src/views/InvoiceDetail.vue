@@ -5,23 +5,23 @@
         <title-header> DETAIL FAKTUR </title-header>
         <content-header>
           <div class="invoicedetail__id has-text-weight-bold">
-            GJI200121280129001
+            {{ getDataChecker('getInvoiceDetailEmployeeData', 'id_karyawan') }}
           </div>
           <div
             class="invoicedetail__publishdate has-font-size-14 has-text-semifade"
           >
-            Dicatat : 31 Januari 2021
+            Dicatat : {{ getDataChecker('getInvoiceDetailEmployeeData', 'tanggal_catat') }}
           </div>
         </content-header>
         <summary-header class="pt-1 pb-3">
           <div class="invoicedetail__person-wrapper">
             <div class="has-text-weight-bold invoicedetail__personname">
-              Bu Adara Olivia
+              {{ getDataChecker('getInvoiceDetailEmployeeData', 'nama_karyawan') }}
             </div>
             <div
               class="person__salaryperiode has-text-weight-normal has-font-size-14 has-text-semifade"
             >
-              Periode 01 Januari 2021 - 31 Januari 2021
+              Periode {{ getDataChecker('getInvoiceDetailEmployeeData', 'periode') }}
             </div>
           </div>
         </summary-header>
@@ -29,34 +29,37 @@
       <salary-section
         section="detail"
         title="Gaji"
-        :dataSalary="[]"
+        :dataSalary="getInvoiceDetailMainSettingData"
         subtotalLabel="Gaji"
       />
-      <piece-rate section="detail" title="Upah Borongan" subtotalLabel="Upah" />
-      <!-- conditional if has no komisi -->
-      <!-- <template v-if="komisi.length > 0"> -->
+      <piece-rate 
+        section="detail" 
+        title="Upah Borongan"
+        :dataWageSetting="getInvoiceDetailWageSettingData"
+        :dataWageProcessing="getInvoiceDetailWageProcessingSettingData"
+        subtotalLabel="Upah"
+      />
+
       <commission-section
         section="detail"
         title="Komisi"
         subtotalLabel="Komisi"
       />
-      <!-- </template> -->
 
-      <!-- conditional if has no tanggungan -->
-      <!-- <template v-if="tanggungan.length > 0"> -->
+      <bruto-salary-section :value="getInvoiceDetailBrutoValue" />
+
       <dependent-section
         section="detail"
         title="Tanggungan"
-        subtitle="Karyawan ini memiliki tanggungan Rp 570.000"
         dependentTotalLabel="Tanggungan Dibayar"
       />
-      <!-- </template> -->
-      <netto-salary-section section="summary"/>
+      <netto-salary-section section="summary" :value="getInvoiceDetailNettoValue"/>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 import HeaderApps from '../components/HeaderApps';
 import ContentHeader from '../components/HeaderApps/ContentHeader.vue';
 import SummaryHeader from '../components/HeaderApps/SummaryHeader.vue';
@@ -64,8 +67,10 @@ import TitleHeader from '../components/HeaderApps/TitleHeader';
 import SalarySection from '../components/SalarySection';
 import PieceRate from '../components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
+import BrutoSalarySection from '@/components/BrutoSalarySection';
 import DependentSection from '@/components/DependentSection';
 import NettoSalarySection from '@/components/NettoSalarySection';
+
 
 export default {
   name: 'InvoiceDetail',
@@ -78,9 +83,36 @@ export default {
     SalarySection,
     PieceRate,
     CommissionSection,
+    BrutoSalarySection,
     DependentSection,
     NettoSalarySection,
   },
+  computed: {
+    ...mapGetters('invoicedetailStore', [
+      'getFetchedInvoiceDetailPayment',
+      'getInvoiceDetailEmployeeData',
+      'getInvoiceDetailMainSettingData',
+      'getInvoiceDetailWageSettingData',
+      'getInvoiceDetailWageProcessingSettingData',
+      'getInvoiceDetailCommissionData',
+      'getInvoiceDetailDependentsData',
+      'getInvoiceDetailMainValue',
+      'getInvoiceDetailCommissionValue',
+      'getInvoiceDetailPieceRateValue',
+      'getInvoiceDetailBrutoValue',
+      'getInvoiceDetailDependentsValue',
+      'getInvoiceDetailNettoValue',
+      'getInvoiceDetailInfo',
+    ])
+  },
+  methods: {
+    getDataChecker(key, prop) {
+      if (!this[key] || !this[key].hasOwnProperty(prop)) {
+        return '-';
+      }
+      return this[key][prop];
+    },
+  }
 };
 </script>
 

@@ -7,9 +7,9 @@
     </div>
     <!-- Add commission Button-->
     <div v-if="section === 'main'" class="pt-4 px-4 commissionsection__button">
-      <div 
+      <div
         class="is-flex commissionsection__add"
-        :class="getSalaryCommissionData.length === 0 ? 'pb-4':''"
+        :class="getSalaryCommissionData.length === 0 ? 'pb-4' : ''"
       >
         <a
           class="button is-text py-0 px-0 commissionsection__addbutton"
@@ -89,24 +89,57 @@ export default {
     AddIcon,
   },
   computed: {
-    ...mapGetters('salaryinvoiceStore', ['getSalaryCommissionData']),
+    ...mapGetters('salaryinvoiceStore', [
+      'getSalaryCommissionData',
+    ]),
+    ...mapGetters('invoicedetailStore', ['getInvoiceDetailCommissionData']),
     subTotalKomisi() {
-      if (this.getSalaryCommissionData.length > 0) {
-        let subTotalVal = this.getSalaryCommissionData.reduce((total, item) => {
-          return (total += item.nominal);
-        }, 0);
-        this.setCommissionSalaryValue(subTotalVal);
-        return kursRupiahUtil(subTotalVal, '');
+      if (this.section === 'detail') {
+        if (this.getInvoiceDetailCommissionData.length > 0) {
+          let subTotalVal = this.getInvoiceDetailCommissionData.reduce(
+            (total, item) => {
+              return (total += item.nominal);
+            },
+            0
+          );
+          this.setInvoiceDetailCommissionValue(subTotalVal);
+          return kursRupiahUtil(subTotalVal, '');
+        } else {
+          this.setInvoiceDetailCommissionValue(0);
+          return 0;
+        }
+      } else {
+        if (this.getSalaryCommissionData.length > 0) {
+          let subTotalVal = this.getSalaryCommissionData.reduce(
+            (total, item) => {
+              return (total += item.nominal);
+            },
+            0
+          );
+          this.setCommissionSalaryValue(subTotalVal);
+          return kursRupiahUtil(subTotalVal, '');
+        } else {
+          this.setCommissionSalaryValue(0);
+          return 0;
+        }
       }
-      return 0;
     },
   },
   methods: {
-    ...mapActions('salaryinvoiceStore', ['setCommissionSalaryDlg', 'setCommissionSalaryValue']),
+    ...mapActions('salaryinvoiceStore', [
+      'setCommissionSalaryDlg',
+      'setCommissionSalaryValue',
+    ]),
+    ...mapActions('invoicedetailStore', ['setInvoiceDetailCommissionValue','setInvoiceDetailBrutoValue']),
     showDialogCommission() {
       this.setCommissionSalaryDlg(true);
     },
   },
+  mounted() {
+    if(this.section === 'detail') {
+      this.setInvoiceDetailBrutoValue()
+    }
+  }
 };
 </script>
 

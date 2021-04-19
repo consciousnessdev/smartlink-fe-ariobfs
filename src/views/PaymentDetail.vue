@@ -201,6 +201,7 @@ export default {
     ...mapGetters('paymentdetailStore', [
       'getFetchState',
       'getBankListData',
+      'getSubmitPaymentDetailData',
       'getSubmitPaymentDetailLoading',
       'getSubmitPaymentDetailStatus',
       'getSubmitPaymentDetailMessage',
@@ -229,6 +230,7 @@ export default {
       'submitPaymentDetail',
       'unsetPaymentDetailStatusMessage',
     ]),
+    ...mapActions('invoicedetailStore', ['setInvoiceDetailInitData']),
     parseNominal(val) {
       return kursRupiahUtil(val, 'Rp ');
     },
@@ -298,7 +300,9 @@ export default {
         this.getSubmitPaymentDetailMessage.match('Berhasil Menyimpan Gaji')
           .length > 0
       ) {
-        this.$router.push({ path: '/invoicedetail' });
+        this.setInvoiceDetailInitData(this.getSubmitPaymentDetailData).then(() => {
+          this.$router.push({ path: '/invoicedetail' });
+        });
       }
     },
   },
