@@ -4,18 +4,18 @@
       <header-apps>
         <title-header> DETAIL FAKTUR </title-header>
         <content-header>
-          <div class="detailinvoice__id has-text-weight-bold">
+          <div class="invoicedetail__id has-text-weight-bold">
             GJI200121280129001
           </div>
           <div
-            class="detailinvoice__publishdate has-font-size-14 has-text-semifade"
+            class="invoicedetail__publishdate has-font-size-14 has-text-semifade"
           >
             Dicatat : 31 Januari 2021
           </div>
         </content-header>
         <summary-header class="pt-1 pb-3">
-          <div class="detailinvoice__person-wrapper">
-            <div class="has-text-weight-bold detailinvoice__personname">
+          <div class="invoicedetail__person-wrapper">
+            <div class="has-text-weight-bold invoicedetail__personname">
               Bu Adara Olivia
             </div>
             <div
@@ -66,8 +66,9 @@ import PieceRate from '../components/PieceRate';
 import CommissionSection from '@/components/CommissionSection';
 import DependentSection from '@/components/DependentSection';
 import NettoSalarySection from '@/components/NettoSalarySection';
+
 export default {
-  name: 'DetailInvoice',
+  name: 'InvoiceDetail',
   props: {},
   components: {
     HeaderApps,
@@ -84,7 +85,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.detailinvoice {
+.invoicedetail {
   &__id,
   &__personname {
     font-size: 18px;
