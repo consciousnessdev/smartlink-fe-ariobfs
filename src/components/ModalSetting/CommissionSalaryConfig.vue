@@ -60,7 +60,7 @@
           expanded
           type="is-danger"
           outlined
-          @click="clearCommissionField"
+          @click="deleteCommission"
           :disabled="commissionNama === '' || commissionNominal === 0"
         />
         <b-button
@@ -114,6 +114,7 @@ export default {
     ...mapActions('salaryinvoiceStore', [
       'addCommissionSalaryItem',
       'setCommissionSalaryItem',
+      'delCommissionSalaryItem'
     ]),
     handleNominal(evt) {
       evt = evt ? evt : window.event;
@@ -123,9 +124,14 @@ export default {
       }
       return true;
     },
-    clearCommissionField() {
-      this.commissionNama = '';
-      this.commissionNominal = 0;
+    deleteCommission() {
+      if(this.commissionDlgState === 'add') {
+        this.commissionNama = '';
+        this.commissionNominal = 0;
+      }else{
+        const {indexData : index} = this.getDialogDataObj;
+        this.delCommissionSalaryItem(index);
+      }
     },
     submitCommissionSalary() {
       const { commissionNama: nama, commissionNominal } = this;

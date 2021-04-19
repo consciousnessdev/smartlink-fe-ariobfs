@@ -27,7 +27,7 @@
               controls-position="compact"
               type="is-normal"
               class="control__presence"
-              min="1"
+              min="0"
               v-model="presenceDayQty"
               placeholder="Hari"
               @keypress.native="handleNominal($event)"
@@ -43,7 +43,7 @@
           expanded
           type="is-danger"
           outlined
-          @click="presenceDayQty = 1"
+          @click="presenceDayQty = 0"
         />
         <b-button
           label="Simpan"
