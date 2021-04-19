@@ -251,10 +251,7 @@ export default {
       const pengaturan_upah = [...this.getSalaryWageSettingData];
       const pengerjaan_upah = [...this.getSalaryWageProcessingSettingData];
       const komisi = [...this.getSalaryCommissionData];
-      const tanggungan = [...this.getSalaryDependentsData].map((item) => ({
-        nama: item.nama,
-        nominal: item.nominal,
-      }));
+      const tanggungan = [...this.getSalaryDependentsData];
       const { salaryBank: rekening, salaryDate, salaryInfo: keterangan } = this;
       const tanggal_catat = dayjs(salaryDate).format('YYYY-MM-DD');
       const paymentDetailObj = {
